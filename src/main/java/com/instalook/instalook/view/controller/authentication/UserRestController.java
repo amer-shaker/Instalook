@@ -2,6 +2,8 @@ package com.instalook.instalook.view.controller.authentication;
 
 import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.UserService;
+import java.util.List;
+import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -49,4 +51,12 @@ public class UserRestController {
         return user;
     }
 
+       @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public  List<User> login(@QueryParam("email") String email, @QueryParam("password") String password)
+    {
+        List<User> userList =  userService.login(email,password);
+        return userList;
+    }
+    
+     
 }
