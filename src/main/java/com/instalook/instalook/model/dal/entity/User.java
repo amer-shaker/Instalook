@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -31,9 +32,14 @@ public class User implements java.io.Serializable {
     private String location;
     private byte[] profilePicture;
     private Set<Booking> bookings = new HashSet<>(0);
+    
+
     private Set<Post> posts = new HashSet<>(0);
+
     private Set<Salon> salons = new HashSet<>(0);
+
     private Set<Post> postses_1 = new HashSet<>(0);
+
     private Set<Point> points = new HashSet<>(0);
 
     public User() {

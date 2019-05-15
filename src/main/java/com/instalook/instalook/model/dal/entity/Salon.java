@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -106,6 +107,7 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "salon")
     public Set<Barber> getBarbers() {
         return this.barbers;
