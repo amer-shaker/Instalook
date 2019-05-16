@@ -3,7 +3,6 @@ package com.instalook.instalook.model.dal.service.impl;
 import com.instalook.instalook.model.dal.dao.UserDAO;
 import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.UserService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  List<User> login(String email, String password) {
-       return userDAO.login(email, password);
+    public User login(String email, String password) {
+        return userDAO.login(email, password);
     }
-
-   
 }
