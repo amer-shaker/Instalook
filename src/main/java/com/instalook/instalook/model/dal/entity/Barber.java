@@ -1,10 +1,13 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +23,7 @@ import javax.persistence.Table;
 )
 public class Barber implements java.io.Serializable {
 
-    private int barberId;
+    private Integer barberId;
     private Salon salon;
     private String firstName;
     private String lastName;
@@ -33,7 +36,7 @@ public class Barber implements java.io.Serializable {
     public Barber() {
     }
 
-    public Barber(int barberId, String firstName, String lastName, String role, byte[] barberPicture, int isAvailable) {
+    public Barber(Integer barberId, String firstName, String lastName, String role, byte[] barberPicture, int isAvailable) {
         this.barberId = barberId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,7 +45,7 @@ public class Barber implements java.io.Serializable {
         this.isAvailable = isAvailable;
     }
 
-    public Barber(int barberId, Salon salon, String firstName, String lastName, String role, Integer rate, byte[] barberPicture, int isAvailable, Set<Booking> bookings) {
+    public Barber(Integer barberId, Salon salon, String firstName, String lastName, String role, Integer rate, byte[] barberPicture, int isAvailable, Set<Booking> bookings) {
         this.barberId = barberId;
         this.salon = salon;
         this.firstName = firstName;
@@ -55,15 +58,17 @@ public class Barber implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "barber_id", unique = true, nullable = false)
-    public int getBarberId() {
+    public Integer getBarberId() {
         return this.barberId;
     }
 
-    public void setBarberId(int barberId) {
+    public void setBarberId(Integer barberId) {
         this.barberId = barberId;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salon_id")
     public Salon getSalon() {

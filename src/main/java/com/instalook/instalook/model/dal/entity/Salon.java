@@ -2,6 +2,7 @@ package com.instalook.instalook.model.dal.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -106,7 +107,7 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "salon")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
     public Set<Barber> getBarbers() {
         return this.barbers;
     }
