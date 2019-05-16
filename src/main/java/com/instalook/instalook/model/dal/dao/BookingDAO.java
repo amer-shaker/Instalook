@@ -6,6 +6,7 @@
 package com.instalook.instalook.model.dal.dao;
 
 import com.instalook.instalook.model.dal.entity.Barber;
+import com.instalook.instalook.model.dal.entity.Booking;
 import java.util.List;
 
 /**
@@ -14,6 +15,6 @@ import java.util.List;
  */
 public interface BookingDAO {
 
-    public abstract List<Object[]> getBookings(Barber barber);
+    public abstract List<Object[]> getBookings();
 
 }

@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 public class Booking implements java.io.Serializable {
 
     private int bookingId;
+    @JsonIgnore
     private Barber barbers;
     private User user;
     private Date bookingDateTime;
@@ -55,7 +56,7 @@ public class Booking implements java.io.Serializable {
     public void setBarbers(Barber barbers) {
         this.barbers = barbers;
     }
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {

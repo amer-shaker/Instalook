@@ -5,8 +5,8 @@
  */
 package com.instalook.instalook.model.dal.service;
 
-
 import com.instalook.instalook.model.dal.entity.Barber;
+import com.instalook.instalook.model.dal.entity.Booking;
 import java.util.List;
 
 /**
@@ -20,5 +20,5 @@ public interface BookingService {
      * @param barber
      * @return
      */
-    public abstract List<Object[]> getBookings(Barber barber);
+    public abstract List<Object[]> getBookings();
 }

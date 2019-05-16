@@ -22,6 +22,7 @@ import javax.persistence.Table;
 public class Barber implements java.io.Serializable {
 
     private int barberId;
+    @JsonIgnore
     private Salon salon;
     private String firstName;
     private String lastName;
@@ -29,6 +30,7 @@ public class Barber implements java.io.Serializable {
     private Integer rate;
     private byte[] barberPicture;
     private int isAvailable;
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
 
     public Barber() {

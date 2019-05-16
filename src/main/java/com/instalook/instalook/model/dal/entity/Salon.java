@@ -1,6 +1,7 @@
 package com.instalook.instalook.model.dal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.springframework.web.servlet.View;
 
 /**
  * @author Amer Shaker
@@ -25,6 +27,7 @@ import javax.persistence.UniqueConstraint;
 public class Salon implements java.io.Serializable {
 
     private int salonId;
+
     private String salonName;
     private String salonEmail;
     private String salonLocation;
@@ -167,4 +170,8 @@ public class Salon implements java.io.Serializable {
         this.users = users;
     }
 
+    @Override
+    public String toString() {
+        return "[\"salonName:\"" + salonName +"]";
+    }
 }

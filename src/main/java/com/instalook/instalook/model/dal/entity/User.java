@@ -31,6 +31,7 @@ public class User implements java.io.Serializable {
     private String password;
     private String location;
     private byte[] profilePicture;
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
     
 

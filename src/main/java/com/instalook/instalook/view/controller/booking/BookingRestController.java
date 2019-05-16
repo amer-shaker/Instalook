@@ -7,6 +7,7 @@ package com.instalook.instalook.view.controller.booking;
 
 
 import com.instalook.instalook.model.dal.entity.Barber;
+import com.instalook.instalook.model.dal.entity.Booking;
 import com.instalook.instalook.model.dal.service.BookingService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,8 @@ public class BookingRestController {
     private BookingService bookingService;
 
     @RequestMapping(value = "/getBookings", method = RequestMethod.GET,
-            produces = "application/json", consumes = "application/json")
-    public List<Object[]> getBookings(@RequestBody Barber barber) {
-
-        return bookingService.getBookings(barber);
+            produces = "application/json")
+    public List<Object[]> getBookings() {
+        return bookingService.getBookings();
     }
 }
