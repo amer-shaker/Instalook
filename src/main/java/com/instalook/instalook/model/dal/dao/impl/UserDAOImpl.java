@@ -26,6 +26,8 @@ public class UserDAOImpl implements UserDAO {
         int id = (Integer) session.save(user);
         System.out.println("id: iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + id);
         session.getTransaction().commit();
+        session.close();
+        session = null;
         return id;
     }
 
