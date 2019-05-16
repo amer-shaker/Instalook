@@ -1,7 +1,10 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 /**
  * @author Amer Shaker
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "salons",
         catalog = "instalook",
@@ -106,7 +110,7 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "salon")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
     public Set<Barber> getBarbers() {
         return this.barbers;
     }
@@ -133,7 +137,8 @@ public class Salon implements java.io.Serializable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY )
+    @JsonIgnore
     @JoinTable(name = "salon_provide_services", catalog = "instalook",
             joinColumns = {
                 @JoinColumn(name = "salon_id", nullable = false, updatable = false)},
