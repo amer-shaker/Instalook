@@ -1,5 +1,7 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 /**
  * @author Amer Shaker
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "services",
         catalog = "instalook"
@@ -77,6 +80,7 @@ public class Service implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "services")
+     @JsonIgnore
     public Set<Salon> getSalons() {
         return this.salons;
     }
