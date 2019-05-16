@@ -25,9 +25,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public int register(User user) {
+        Session session = null;
         int id = 0;
+
         try {
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
             id = (Integer) session.save(user);
             session.getTransaction().commit();
@@ -35,6 +37,11 @@ public class UserDAOImpl implements UserDAO {
             System.err.println(ex.getConstraintName());
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
+        } finally {
+            if (session != null) {
+                session.clear();
+                session.close();
+            }
         }
 
         return id;
@@ -42,27 +49,24 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User login(String email, String password) {
+        Session session = null;
         User user = null;
+
         try {
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             Criteria criteria = session.createCriteria(User.class)
                     .add(Restrictions.eq("email", email))
                     .add(Restrictions.eq("password", password));
             user = (User) criteria.uniqueResult();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
+        } finally {
+            if (session != null) {
+                session.clear();
+                session.close();
+            }
         }
 
-        return user;
-    }
-
-    @Override
-    public User getUserById(int userId) {
-        User user = null;
-        Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(User.class)
-                .add(Restrictions.eq("userId", userId));
-        user = (User) criteria.uniqueResult();
         return user;
     }
 }

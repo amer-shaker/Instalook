@@ -13,6 +13,4 @@ public interface UserDAO {
     public abstract int register(User user);
 
     public abstract User login(String email, String password);
-
-    public abstract User getUserById(int userId);
 }

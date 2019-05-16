@@ -3,7 +3,6 @@ package com.instalook.instalook.view.controller.authentication;
 import com.instalook.instalook.view.controller.utils.Response;
 import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.UserService;
-import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -54,15 +54,17 @@ public class UserRestController {
         }
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST, produces = "application/json")
-    public Object login(@QueryParam("email") String email, @QueryParam("password") String password) {
+    @RequestMapping(value = "/user/login",
+            method = RequestMethod.POST,
+            produces = "application/json")
+    public Object login(@RequestParam("email") String email, @RequestParam("password") String password) {
         User user = userService.login(email, password);
         Response responseBody = new Response();
 
         if (user != null) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            return  user;
+            return user;
         } else {
             ResponseEntity<Response> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
             responseBody.setStatusCode(response.getStatusCode());
