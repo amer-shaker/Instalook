@@ -1,7 +1,6 @@
 package com.instalook.instalook.model.dal.service;
 
 import com.instalook.instalook.model.dal.entity.User;
-import java.util.List;
 
 /**
  *
@@ -10,10 +9,6 @@ import java.util.List;
 public interface UserService {
 
     public abstract int register(User user);
-    
-    public   List<User> login(String email, String password); 
-    
 
-    
-    
+    public abstract User login(String email, String password);
 }
