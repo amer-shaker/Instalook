@@ -9,4 +9,6 @@ import com.instalook.instalook.model.dal.entity.User;
 public interface UserService {
 
     public abstract int register(User user);
+
+    public abstract User login(String email, String password);
 }

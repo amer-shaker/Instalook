@@ -1,6 +1,7 @@
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\model\dal\dao\impl\ServicesDAOImpl.java
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\model\dal\entity\Service.java
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\view\controller\authentication\SalonServicesRestController.java
+F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\view\controller\utils\Response.java
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\model\dal\service\SalonServicesService.java
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\model\dal\entity\Salon.java
 F:\ITI Intake 39\FINAL PROJECT\V2\InstaLook\src\main\java\com\instalook\instalook\model\dal\service\UserService.java

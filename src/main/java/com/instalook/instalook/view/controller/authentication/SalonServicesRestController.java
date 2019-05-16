@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.view.controller.authentication;
 
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
-import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.SalonServicesService;
-import com.instalook.instalook.model.dal.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,21 +30,21 @@ public class SalonServicesRestController {
     public List<Service> getSalonServices(@PathVariable("salonId") int id) {
         return salonServicesService.getAllServicesOfSalon(id);
     }
-    
+
     @RequestMapping("/getsalonsprovide/{servicename}")
     public List<Salon> getSalonsProvidedService(@PathVariable("servicename") String serviceName) {
         return salonServicesService.getAllSalonProvideService(serviceName);
     }
-    
+
     @RequestMapping("/deletservice/{serviceId}")
     public void deleteServiceById(@PathVariable("serviceId") int serviceId) {
         salonServicesService.deletServiceFromSalon(serviceId);
     }
 
     @RequestMapping(value = "/salon/addservice", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder,@RequestParam int salonId) {
-        System.out.println("Service name json"+service.getServiceName());
-        System.out.println("Service name json"+service.getServiceType());
+    public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
+        System.out.println("Service name json" + service.getServiceName());
+        System.out.println("Service name json" + service.getServiceType());
 
         int id = salonServicesService.insertServiceToSalon(salonId, service);
         if (id == 0) {
@@ -64,10 +57,11 @@ public class SalonServicesRestController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
     @RequestMapping(value = "/salon/updateservice", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> updateSalonService(@RequestBody Service service, UriComponentsBuilder ucBuilder) {
-        System.out.println("Service name json"+service.getServiceName());
-        System.out.println("Service name json"+service.getServiceType());
+        System.out.println("Service name json" + service.getServiceName());
+        System.out.println("Service name json" + service.getServiceType());
 
         int id = salonServicesService.updateSalonService(service);
         if (id == 0) {

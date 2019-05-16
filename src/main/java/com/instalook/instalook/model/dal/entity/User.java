@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,7 +25,7 @@ import javax.persistence.UniqueConstraint;
 )
 public class User implements java.io.Serializable {
 
-    private int userId;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -39,7 +41,7 @@ public class User implements java.io.Serializable {
     public User() {
     }
 
-    public User(int userId, String firstName, String lastName, String email, String password) {
+    public User(Integer userId, String firstName, String lastName, String email, String password) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +49,7 @@ public class User implements java.io.Serializable {
         this.password = password;
     }
 
-    public User(int userId, String firstName, String lastName, String email, String password, String location, byte[] profilePicture, Set<Booking> bookings, Set<Post> posts, Set<Salon> salons, Set<Post> postses_1, Set<Point> points) {
+    public User(Integer userId, String firstName, String lastName, String email, String password, String location, byte[] profilePicture, Set<Booking> bookings, Set<Post> posts, Set<Salon> salons, Set<Post> postses_1, Set<Point> points) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,12 +65,13 @@ public class User implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
-    public int getUserId() {
+    public Integer getUserId() {
         return this.userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
