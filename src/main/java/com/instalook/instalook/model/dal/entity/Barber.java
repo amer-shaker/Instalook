@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "barbers",
         catalog = "instalook"
 )
-public class Barber implements java.io.Serializable {
+public class Barber implements java.io.Serializable,Cloneable {
 
     private int barberId;
     @JsonIgnore
@@ -30,7 +30,7 @@ public class Barber implements java.io.Serializable {
     private Integer rate;
     private byte[] barberPicture;
     private int isAvailable;
-    @JsonIgnore
+   // @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
 
     public Barber() {

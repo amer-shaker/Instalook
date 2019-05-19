@@ -19,10 +19,10 @@ import javax.persistence.TemporalType;
 @Table(name = "bookings",
         catalog = "instalook"
 )
-public class Booking implements java.io.Serializable {
+public class Booking implements java.io.Serializable,Cloneable {
 
     private int bookingId;
-    @JsonIgnore
+   // @JsonIgnore
     private Barber barbers;
     private User user;
     private Date bookingDateTime;

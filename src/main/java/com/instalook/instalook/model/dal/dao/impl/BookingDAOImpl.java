@@ -36,11 +36,15 @@ public class BookingDAOImpl implements BookingDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Object[]> getBookings() {
-        Query query = sessionFactory.openSession().createQuery("select s.salonName as salonName,u.firstName as firstName from Salon s, User u, Barber b, Booking bo "
-                + "where (u.userId = bo.user.userId and b.barberId = bo.barbers.barberId) "
-                + "and (b.salon.salonId = s.salonId) and (b.barberId = :currentBarberId)").setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-        query.setParameter("currentBarberId", 3);
+    public List<Object[]> getBarberBookings(int barberId) {
+        Query query = sessionFactory.openSession().createQuery("select salon.salonName as salonName,"
+                + " concat(user.firstName, ' ', user.lastName) as userName ,user.profilePicture as userImage ,"
+                + " concat(barber.firstName,' ',barber.lastName)as barberName,booking.bookingDateTime as time, barber.barberPicture as barberImage"
+                + " from Salon salon, User user, Barber barber, Booking booking"
+                + " where (user.userId = booking.user.userId and barber.barberId = booking.barbers.barberId) "
+                + " and (barber.salon.salonId = salon.salonId) and (barber.barberId = :currentBarberId)").setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+        query.setParameter("currentBarberId", barberId);
+       
         return query.list();
     }
 

@@ -27,8 +27,8 @@ public class BookingServiceImpl implements BookingService {
     private BookingDAO bookingDAO;
 
     @Override
-    public List<Object[]> getBookings() {
-        return bookingDAO.getBookings();
+    public List<Object[]> getBarberBookings(int barberId) {
+        return bookingDAO.getBarberBookings(barberId);
     }
 
 }

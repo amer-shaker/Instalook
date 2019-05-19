@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
         catalog = "instalook",
         uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
-public class User implements java.io.Serializable {
+public class User implements java.io.Serializable,Cloneable {
 
     private int userId;
     private String firstName;
@@ -31,7 +31,7 @@ public class User implements java.io.Serializable {
     private String password;
     private String location;
     private byte[] profilePicture;
-    @JsonIgnore
+   // @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
     
 
