@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
  * @author Amer Shaker
@@ -107,6 +109,7 @@ public class Salon implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "salon")
+    @JsonIgnore 
     public Set<Barber> getBarbers() {
         return this.barbers;
     }
