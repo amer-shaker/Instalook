@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,13 +44,32 @@ public class SalonDAOImpl implements SalonDAO {
         session.getTransaction().commit();
         return salons;
 
-//        try {
-//            return sessionFactory.getCurrentSession().createCriteria(Salons.class).list();
-//
-//        } catch (Exception e) {
-//
-//            return new ArrayList<>();
-//        }
     }
 
+//    @Override
+//    public List<Salon> getAllSallonsByCategory(String salonType) {
+//
+//        Session session = null ;
+//        List<Salon> salonList = null ;
+//
+//        try {
+//            session = sessionFactory.openSession();
+//            Criteria criteria = session.createCriteria(Salon.class)
+//                    .add(Restrictions.eq("salonType", salonType));
+//            salonList =  criteria.list();
+//        } catch (HibernateException ex) {
+//            System.err.println(ex.getMessage());
+//        } finally {
+//            if (session != null) {
+//                session.clear();
+//                session.close();
+//            }
+//        }
+//    
+//
+//      return salonList;
+//    }
 }
+    
+      
+

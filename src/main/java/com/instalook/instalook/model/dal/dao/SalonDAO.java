@@ -16,5 +16,7 @@ import com.instalook.instalook.model.dal.entity.Salon;
 public interface SalonDAO {
 
     public abstract List<Salon> getAllSalons();
+    
+   // public abstract List<Salon>  getAllSallonsByCategory(String salonType);
 
 }

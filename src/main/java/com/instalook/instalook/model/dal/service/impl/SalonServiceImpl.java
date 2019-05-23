@@ -30,4 +30,10 @@ public class SalonServiceImpl implements SalonService {
         return salonDAO.getAllSalons();
     }
 
+//    @Override
+//    public List<Salon> getAllSallonsByCategory(String salonType) {
+//        
+//        return salonDAO.getAllSallonsByCategory(salonType);
+//    }
+
 }

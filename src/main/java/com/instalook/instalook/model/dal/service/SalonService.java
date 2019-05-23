@@ -13,7 +13,9 @@ import java.util.List;
  * @author Ahmed moatasem
  */
 public interface SalonService {
-    
+
     public abstract List<Salon> getAllSalons();
-    
+
+    //public abstract List<Salon> getAllSallonsByCategory(String salonType);
+
 }
