@@ -110,9 +110,9 @@ public class Salon implements java.io.Serializable {
     public void setSalonType(String salonType) {
         this.salonType = salonType;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
     
+    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salons")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon") 
     @JsonIgnore 
     public Set<Barber> getBarbers() {
         return this.barbers;

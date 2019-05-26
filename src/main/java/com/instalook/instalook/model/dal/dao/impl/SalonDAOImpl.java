@@ -28,6 +28,7 @@ public class SalonDAOImpl implements SalonDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
+    Session session1;
 
     @Override
     public List<Salon> getAllSalons() {
@@ -45,6 +46,24 @@ public class SalonDAOImpl implements SalonDAO {
         return salons;
 
     }
+    
+     @Override
+    public List<Salon> getAllSalonsById(int SalonId) {
+        
+         if(session1==null)
+        {
+            session1 = sessionFactory.openSession();
+        }
+        Salon salon = (Salon) session1.load(Salon.class, SalonId);
+        Criteria crit = session1.createCriteria(Salon.class, "s")
+                .add(Restrictions.eq("salonId", salon.getSalonId()));
+        for (Salon s : (List<Salon>) crit.list()) {
+            System.out.println("salon : " + s.getSalonName());
+        }
+
+        return crit.list();
+    }
+    
 
 //    @Override
 //    public List<Salon> getAllSallonsByCategory(String salonType) {
@@ -69,6 +88,8 @@ public class SalonDAOImpl implements SalonDAO {
 //
 //      return salonList;
 //    }
+
+   
 }
     
       

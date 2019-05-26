@@ -39,6 +39,11 @@ public class SalonRestController {
         List<Salon> salonsList = salonService.getAllSalons();
         return salonsList;
     }
+    
+    @RequestMapping("/getSalonsById/{salonId}")
+    public List<Salon> getSalons(@PathVariable("salonId") int id) {
+        return salonService.getAllSalonsById(id);
+    }
        
 //    @RequestMapping(value = "/getSalonsByCategory", method = RequestMethod.GET, headers = "Accept=application/json")
 //    public List<Salon> getSalonsByCategory(@Param String salonType ) {

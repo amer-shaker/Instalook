@@ -29,11 +29,19 @@ public class SalonServiceImpl implements SalonService {
 
         return salonDAO.getAllSalons();
     }
+    
+    @Override
+    public List<Salon> getAllSalonsById(int SalonId) {
+        
+        return salonDAO.getAllSalonsById(SalonId);
+    }
 
 //    @Override
 //    public List<Salon> getAllSallonsByCategory(String salonType) {
 //        
 //        return salonDAO.getAllSallonsByCategory(salonType);
 //    }
+
+    
 
 }

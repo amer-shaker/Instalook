@@ -17,6 +17,6 @@ public interface SalonDAO {
 
     public abstract List<Salon> getAllSalons();
     
-   // public abstract List<Salon>  getAllSallonsByCategory(String salonType);
+     List<Salon> getAllSalonsById(int SalonId);
 
 }

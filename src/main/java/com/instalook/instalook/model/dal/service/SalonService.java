@@ -15,6 +15,8 @@ import java.util.List;
 public interface SalonService {
 
     public abstract List<Salon> getAllSalons();
+    
+    List<Salon> getAllSalonsById(int SalonId);
 
     //public abstract List<Salon> getAllSallonsByCategory(String salonType);
 
