@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,9 +19,10 @@ import javax.persistence.TemporalType;
 @Table(name = "bookings",
         catalog = "instalook"
 )
-public class Booking implements java.io.Serializable {
+public class Booking implements java.io.Serializable,Cloneable {
 
     private int bookingId;
+   // @JsonIgnore
     private Barber barbers;
     private User user;
     private Date bookingDateTime;
@@ -54,7 +56,7 @@ public class Booking implements java.io.Serializable {
     public void setBarbers(Barber barbers) {
         this.barbers = barbers;
     }
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {

@@ -21,9 +21,10 @@ import javax.persistence.Table;
 @Table(name = "barbers",
         catalog = "instalook"
 )
-public class Barber implements java.io.Serializable {
+public class Barber implements java.io.Serializable,Cloneable {
 
     private Integer barberId;
+    @JsonIgnore
     private Salon salon;
     private String firstName;
     private String lastName;
@@ -31,6 +32,7 @@ public class Barber implements java.io.Serializable {
     private Integer rate;
     private byte[] barberPicture;
     private int isAvailable;
+   // @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
 
     public Barber() {
