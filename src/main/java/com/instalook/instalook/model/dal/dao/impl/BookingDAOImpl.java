@@ -6,12 +6,6 @@
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.BookingDAO;
-import com.instalook.instalook.model.dal.entity.Barber;
-import com.instalook.instalook.model.dal.entity.Booking;
-import com.instalook.instalook.model.dal.entity.Salon;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import static java.util.Collections.list;
 
 import java.util.List;
 import javax.transaction.Transactional;
