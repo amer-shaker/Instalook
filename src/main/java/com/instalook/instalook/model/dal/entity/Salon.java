@@ -141,7 +141,7 @@ public class Salon implements java.io.Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinTable(name = "salon_provide_services", catalog = "instalook",
+    @JoinTable(name = "salon_provide_services", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "salon_id", nullable = false, updatable = false)},
             inverseJoinColumns = {

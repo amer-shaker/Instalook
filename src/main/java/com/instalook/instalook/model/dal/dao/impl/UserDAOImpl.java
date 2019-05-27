@@ -38,10 +38,10 @@ public class UserDAOImpl implements UserDAO {
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-            if (session != null) {
-                session.clear();
-                session.close();
-            }
+//            if (session != null) {
+//                session.clear();
+//                session.close();
+//            }
         }
 
         return id;
