@@ -1,4 +1,4 @@
-package com.instalook.instalook.view.controller.authentication;
+package com.instalook.instalook.view.controller.barber;
 
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.service.BarbersService;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Aya
  */
 @RestController
+@RequestMapping("/barber")
 public class BarbersRestController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class BarbersRestController {
      * @param salonId is the salon id of type Integer
      *
      */
-    @RequestMapping(value = "/barbers/all")
+    @RequestMapping(value = "/all")
     public List<Barber> getAllBarbers(@RequestParam("id") Integer salonId) {
         return barbersService.getAllBarbers(salonId);
     }
@@ -37,7 +38,7 @@ public class BarbersRestController {
      * @param id is the salon id of type Integer
      *
      */
-    @RequestMapping(value = "/barbers/barber", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/barber", method = RequestMethod.GET, produces = "application/json")
     public Barber getBarberById(@RequestParam("id") Integer id) {
         return barbersService.getBarberById(id);
     }
@@ -48,7 +49,7 @@ public class BarbersRestController {
      * @param barber is a JSON object of Barber
      *
      */
-    @RequestMapping(value = "/barbers/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public int addBarber(@RequestBody Barber barber) {
         return barbersService.addBarber(barber);
     }
@@ -60,7 +61,7 @@ public class BarbersRestController {
      * @param rate is the the new rate of type Integer
      *
      */
-    @RequestMapping(value = "/barbers/barber/rate", method = RequestMethod.POST)
+    @RequestMapping(value = "/rate", method = RequestMethod.POST)
     public void rateBarber(@RequestParam("id") Integer barberId, @RequestParam("rate") Integer rate) {
         barbersService.rateBarber(barberId, rate);
     }
@@ -71,7 +72,7 @@ public class BarbersRestController {
      * @param barber is the updated barber object of type Barber
      *
      */
-    @RequestMapping(value = "/barbers/barber/update", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public void updateBarberData(@RequestBody Barber barber) {
         barbersService.updateBarberData(barber);
     }
@@ -83,7 +84,7 @@ public class BarbersRestController {
      * @param availability is the new availability of the user of type Integer
      *
      */
-    @RequestMapping(value = "/barbers/barber/available", method = RequestMethod.POST)
+    @RequestMapping(value = "/available", method = RequestMethod.POST)
     public void updateBarberAvailability(@RequestParam("id") Integer barberId, @RequestParam("isAvailable") Integer availability) {
         barbersService.updateBarberAvailability(barberId, availability);
     }
@@ -94,7 +95,7 @@ public class BarbersRestController {
      * @param barberId is the barber id of type Integer
      *
      */
-    @RequestMapping(value = "/barbers/barber/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public int deleteBarber(@RequestParam("id") Integer barberId) {
         return barbersService.deleteBarber(barberId);
     }

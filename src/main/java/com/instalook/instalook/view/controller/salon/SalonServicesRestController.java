@@ -1,4 +1,4 @@
-package com.instalook.instalook.view.controller.authentication;
+package com.instalook.instalook.view.controller.salon;
 
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
@@ -21,12 +21,13 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Mohamed Ramadan
  */
 @RestController
+@RequestMapping("/service")
 public class SalonServicesRestController {
 
     @Autowired
     private SalonServicesService salonServicesService;
 
-    @RequestMapping("/getservices/{salonId}")
+    @RequestMapping(value = "/getservices/{salonId}")
     public List<Service> getSalonServices(@PathVariable("salonId") int id) {
         return salonServicesService.getAllServicesOfSalon(id);
     }

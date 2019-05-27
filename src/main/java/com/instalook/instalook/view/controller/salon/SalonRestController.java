@@ -1,4 +1,4 @@
-package com.instalook.instalook.view.controller.authentication;
+package com.instalook.instalook.view.controller.salon;
 
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.service.SalonService;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Ahmed moatasem
  */
 @RestController
+@RequestMapping("/salon")
 public class SalonRestController {
 
     @Autowired
