@@ -1,6 +1,6 @@
 package com.instalook.instalook.view.controller.authentication;
 
-import com.instalook.instalook.view.controller.utils.Response;
+import com.instalook.instalook.view.controller.utils.BaseResponse;
 import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +20,27 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Amer Shaker
  */
 @RestController
+@RequestMapping("/user")
 public class UserRestController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user/register/",
+    @RequestMapping(value = "/register",
             method = RequestMethod.POST,
             produces = "application/json",
             consumes = "application/json")
-    public ResponseEntity<Response> register(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<BaseResponse> register(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         int id = userService.register(user);
-        Response responseBody = new Response();
+        BaseResponse responseBody = new BaseResponse();
 
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setLocation(ucBuilder.path("/user/register/{id}")
+            headers.setLocation(ucBuilder.path("/register/{id}")
                     .buildAndExpand(user.getUserId()).toUri());
 
-            ResponseEntity<Response> response = new ResponseEntity<>(responseBody,
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody,
                     headers,
                     HttpStatus.CREATED);
 
@@ -47,26 +48,26 @@ public class UserRestController {
             responseBody.setStatusMessage("Successfully, registered.");
             return response;
         } else {
-            ResponseEntity<Response> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
             responseBody.setStatusCode(response.getStatusCode());
             responseBody.setStatusMessage("Duplicate entry for e-mail");
             return response;
         }
     }
 
-    @RequestMapping(value = "/user/login",
+    @RequestMapping(value = "/login",
             method = RequestMethod.POST,
             produces = "application/json")
     public Object login(@RequestParam("email") String email, @RequestParam("password") String password) {
         User user = userService.login(email, password);
-        Response responseBody = new Response();
+        BaseResponse responseBody = new BaseResponse();
 
         if (user != null) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return user;
         } else {
-            ResponseEntity<Response> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
             responseBody.setStatusCode(response.getStatusCode());
             responseBody.setStatusMessage("Incorrect credentials");
             return response;

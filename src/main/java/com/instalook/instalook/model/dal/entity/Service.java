@@ -80,7 +80,7 @@ public class Service implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "services")
-     @JsonIgnore
+    @JsonIgnore
     public Set<Salon> getSalons() {
         return this.salons;
     }

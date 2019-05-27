@@ -137,7 +137,7 @@ public class Salon implements java.io.Serializable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinTable(name = "salon_provide_services", catalog = "instalook",
             joinColumns = {
