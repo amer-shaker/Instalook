@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com\instalook\instalook\model\dal\entity\Salon.class
 com\instalook\instalook\model\dal\service\SalonServicesService.class
 com\instalook\instalook\model\dal\dao\impl\ServicesDAOImpl.class
@@ -22,3 +23,5 @@ com\instalook\instalook\model\dal\service\impl\UserServiceImpl.class
 com\instalook\instalook\view\controller\utils\BaseResponse.class
 com\instalook\instalook\model\dal\entity\User.class
 com\instalook\instalook\model\dal\entity\Point.class
+=======
+>>>>>>> 7822374d6d9404b341ef704bc0e22682d1729fae

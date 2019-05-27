@@ -71,7 +71,7 @@ public class BarbersDAOImpl implements BarbersDAO {
         updatedBarber.setIsAvailable(barber.getIsAvailable());
         updatedBarber.setRole(barber.getRole());
         updatedBarber.setSalon(barber.getSalon());
-        
+
         session.evict(updatedBarber);
         session.update(barber);
         transaction.commit();

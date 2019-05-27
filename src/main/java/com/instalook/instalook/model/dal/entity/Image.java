@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,6 +47,7 @@ public class Image implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salon_id")
+    @JsonIgnore 
     public Salon getSalon() {
         return this.salon;
     }
