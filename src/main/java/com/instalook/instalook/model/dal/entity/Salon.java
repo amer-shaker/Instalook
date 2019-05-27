@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
  * @author Amer Shaker
@@ -23,7 +22,7 @@ import jdk.nashorn.internal.ir.annotations.Ignore;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "salons",
-        catalog = "instalook",
+        catalog = "heroku_858654a6d05adcb",
         uniqueConstraints = @UniqueConstraint(columnNames = "salon_email")
 )
 public class Salon implements java.io.Serializable {
@@ -110,10 +109,10 @@ public class Salon implements java.io.Serializable {
     public void setSalonType(String salonType) {
         this.salonType = salonType;
     }
-    
+
     // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salons")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon") 
-    @JsonIgnore 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
+    @JsonIgnore
     public Set<Barber> getBarbers() {
         return this.barbers;
     }

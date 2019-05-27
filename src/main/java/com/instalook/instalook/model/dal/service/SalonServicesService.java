@@ -10,14 +10,13 @@ import java.util.List;
  */
 public interface SalonServicesService {
 
-    List<Service> getAllServicesOfSalon(int SalonId);
+    public abstract List<Service> getAllServicesOfSalon(int SalonId);
 
-    int insertServiceToSalon(int salonId, Service salonService);
+    public abstract int insertServiceToSalon(int salonId, Service salonService);
 
-    int updateSalonService(Service salonService);
+    public abstract int updateSalonService(Service salonService);
 
-    List<Salon> getAllSalonProvideService(String serviceName);
+    public abstract List<Salon> getAllSalonProvideService(String serviceName);
 
-    int deletServiceFromSalon(int serviceId);
-
+    public abstract int deletServiceFromSalon(int serviceId);
 }

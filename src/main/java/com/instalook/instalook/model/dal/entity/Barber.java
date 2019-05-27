@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "barbers",
-        catalog = "instalook"
+        catalog = "heroku_858654a6d05adcb"
 )
 public class Barber implements java.io.Serializable {
 

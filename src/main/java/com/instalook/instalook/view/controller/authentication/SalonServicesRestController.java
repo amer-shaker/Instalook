@@ -74,5 +74,4 @@ public class SalonServicesRestController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
-
 }

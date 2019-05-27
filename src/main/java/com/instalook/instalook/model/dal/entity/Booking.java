@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "bookings",
-        catalog = "instalook"
+        catalog = "heroku_858654a6d05adcb"
 )
 public class Booking implements java.io.Serializable {
 

@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "users",
-        catalog = "instalook",
+        catalog = "heroku_858654a6d05adcb",
         uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
 public class User implements java.io.Serializable {
@@ -188,5 +188,4 @@ public class User implements java.io.Serializable {
     public void setPoints(Set<Point> points) {
         this.points = points;
     }
-
 }

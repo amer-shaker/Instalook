@@ -19,17 +19,17 @@ public interface BarbersDAO {
     public static final String IS_AVAILABLE_COLUMN = "is_available";
     public static final String SALON_ID_COLUMN = "salon_id";
 
-    public List<Barber> getAllBarbers(Integer salonId);
+    public abstract List<Barber> getAllBarbers(Integer salonId);
 
-    public Barber getBarberById(Integer id);
+    public abstract Barber getBarberById(Integer id);
 
-    public int addBarber(Barber barber);
+    public abstract int addBarber(Barber barber);
 
-    public void updateBarberData(Barber barber);
+    public abstract void updateBarberData(Barber barber);
 
-    public void updateBarberAvailability(Integer barberId, Integer availability);
+    public abstract void updateBarberAvailability(Integer barberId, Integer availability);
 
-    public void rateBarber(Integer barberId, Integer rate);
+    public abstract void rateBarber(Integer barberId, Integer rate);
 
-    public int deleteBarber(Integer barberId);
+    public abstract int deleteBarber(Integer barberId);
 }

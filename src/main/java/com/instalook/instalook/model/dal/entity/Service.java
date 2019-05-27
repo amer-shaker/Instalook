@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "services",
-        catalog = "instalook"
+        catalog = "heroku_858654a6d05adcb"
 )
 public class Service implements java.io.Serializable {
 
