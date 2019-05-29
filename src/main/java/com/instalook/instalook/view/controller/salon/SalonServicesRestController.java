@@ -37,12 +37,12 @@ public class SalonServicesRestController {
         return salonServicesService.getAllSalonProvideService(serviceName);
     }
 
-    @RequestMapping("/deletservice/{serviceId}")
+    @RequestMapping("/delete/{serviceId}")
     public void deleteServiceById(@PathVariable("serviceId") int serviceId) {
         salonServicesService.deletServiceFromSalon(serviceId);
     }
 
-    @RequestMapping(value = "/salon/addservice", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
         System.out.println("Service name json" + service.getServiceName());
         System.out.println("Service name json" + service.getServiceType());
