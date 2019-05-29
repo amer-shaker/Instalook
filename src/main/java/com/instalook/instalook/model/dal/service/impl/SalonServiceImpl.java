@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author Ahmed moatasem
+ * @author Amer Shaker
  */
 @Service
 @Transactional
@@ -18,6 +19,11 @@ public class SalonServiceImpl implements SalonService {
 
     @Autowired
     private SalonDAO salonDAO;
+
+    @Override
+    public int addSalon(Salon salon) {
+        return salonDAO.addSalon(salon);
+    }
 
     @Override
     public List<Salon> getAllSalons() {

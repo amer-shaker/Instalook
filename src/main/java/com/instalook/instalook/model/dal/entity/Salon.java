@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,7 +29,7 @@ import javax.persistence.UniqueConstraint;
 )
 public class Salon implements java.io.Serializable {
 
-    private int salonId;
+    private Integer salonId;
     private String salonName;
     private String salonEmail;
     private String salonLocation;
@@ -42,7 +44,7 @@ public class Salon implements java.io.Serializable {
     public Salon() {
     }
 
-    public Salon(int salonId, String salonName, String salonEmail, String salonLocation, String salonType) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
@@ -50,7 +52,7 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
-    public Salon(int salonId, String salonName, String salonEmail, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
@@ -65,12 +67,13 @@ public class Salon implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "salon_id", unique = true, nullable = false)
-    public int getSalonId() {
+    public Integer getSalonId() {
         return this.salonId;
     }
 
-    public void setSalonId(int salonId) {
+    public void setSalonId(Integer salonId) {
         this.salonId = salonId;
     }
 
