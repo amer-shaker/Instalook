@@ -46,13 +46,11 @@ public class SalonServicesRestController {
     public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
         System.out.println("Service name json" + service.getServiceName());
         System.out.println("Service name json" + service.getServiceType());
-
         int id = salonServicesService.insertServiceToSalon(salonId, service);
-        if (id == 0) {
+        if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/salon/addservice/{id}")
+            headers.setLocation(ucBuilder.path("/add/{id}")
                     .buildAndExpand(service.getServiceId()).toUri());
-
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

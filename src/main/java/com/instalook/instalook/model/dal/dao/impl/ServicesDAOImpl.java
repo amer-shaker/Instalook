@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -69,21 +71,16 @@ public class ServicesDAOImpl implements ServicesDAO {
         if (session == null) {
             session = sessionFactory.openSession();
         }
+
         Salon salon = (Salon) session.load(Salon.class, salonId);
         // Salon salon = (Salon) getServiceDaoSession().get(Salon.class, salonId);
         session.beginTransaction();
         salon.getServices().add(salonService);
         salonService.getSalons().add(salon);
+
         int id = (Integer) session.save(salonService);
-        System.out.println("service Id :::::::::::::: " + id);
-        if (!session.getTransaction().wasCommitted()) {
-
-            session.getTransaction().commit();
-            //getServiceDaoSession().close();
-
-        }
+        session.getTransaction().commit();
         return id;
-
     }
 
     @Override
