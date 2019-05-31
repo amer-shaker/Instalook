@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 /**
  *
  * @author Mohamed Ramadan
+ * @author Amer Shaker
  */
 @Repository
 @Transactional
@@ -68,18 +69,29 @@ public class ServicesDAOImpl implements ServicesDAO {
 
     @Override
     public int insertServiceToSalon(int salonId, Service salonService) {
-        if (session == null) {
+        Session session = null;
+        int id = 0;
+
+        try {
             session = sessionFactory.openSession();
+            Salon salon = (Salon) session.load(Salon.class, salonId);
+            session.beginTransaction();
+            salon.getServices().add(salonService);
+            salonService.getSalons().add(salon);
+
+            id = (Integer) session.save(salon);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+//            if (session != null) {
+//                session.clear();
+//                session.close();
+//            }
         }
 
-        Salon salon = (Salon) session.load(Salon.class, salonId);
-        // Salon salon = (Salon) getServiceDaoSession().get(Salon.class, salonId);
-        session.beginTransaction();
-        salon.getServices().add(salonService);
-        salonService.getSalons().add(salon);
-
-        int id = (Integer) session.save(salonService);
-        session.getTransaction().commit();
         return id;
     }
 
