@@ -6,6 +6,7 @@
 package com.instalook.instalook.model.dal.service.impl;
 
 import com.instalook.instalook.model.dal.dao.BookingDAO;
+import com.instalook.instalook.model.dal.dto.BookingDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.entity.Booking;
 
@@ -29,6 +30,22 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Object[]> getBarberBookings(int barberId) {
         return bookingDAO.getBarberBookings(barberId);
+    }
+
+    @Override
+    public List<Object[]> getUserBookings(int userId) {
+        return bookingDAO.getUserBookings(userId);
+
+    }
+
+    @Override
+    public boolean cancelBooking(int bookingId) {
+        return bookingDAO.cancelBooking(bookingId);
+    }
+
+    @Override
+    public Integer insertNewBooking(BookingDTO bookingDTO) {
+        return bookingDAO.insertNewBooking(bookingDTO);
     }
 
 }

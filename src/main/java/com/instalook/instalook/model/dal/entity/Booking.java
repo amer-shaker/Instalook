@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +23,7 @@ import javax.persistence.TemporalType;
 )
 public class Booking implements java.io.Serializable,Cloneable {
 
-    private int bookingId;
+    private Integer bookingId;
    // @JsonIgnore
     private Barber barbers;
     private User user;
@@ -30,7 +32,7 @@ public class Booking implements java.io.Serializable,Cloneable {
     public Booking() {
     }
 
-    public Booking(int bookingId, Barber barbers, User user, Date bookingDateTime) {
+    public Booking(Integer bookingId, Barber barbers, User user, Date bookingDateTime) {
         this.bookingId = bookingId;
         this.barbers = barbers;
         this.user = user;
@@ -38,12 +40,13 @@ public class Booking implements java.io.Serializable,Cloneable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", unique = true, nullable = false)
-    public int getBookingId() {
+    public Integer getBookingId() {
         return this.bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(Integer bookingId) {
         this.bookingId = bookingId;
     }
 
