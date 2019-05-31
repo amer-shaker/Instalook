@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -17,11 +19,11 @@ import javax.persistence.Table;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "services",
-        catalog = "instalook"
+        catalog = "heroku_858654a6d05adcb"
 )
 public class Service implements java.io.Serializable {
 
-    private int serviceId;
+    private Integer serviceId;
     private String serviceName;
     private String serviceType;
     private Double servicePrice;
@@ -30,11 +32,11 @@ public class Service implements java.io.Serializable {
     public Service() {
     }
 
-    public Service(int serviceId) {
+    public Service(Integer serviceId) {
         this.serviceId = serviceId;
     }
 
-    public Service(int serviceId, String serviceName, String serviceType, Double servicePrice, Set<Salon> salons) {
+    public Service(Integer serviceId, String serviceName, String serviceType, Double servicePrice, Set<Salon> salons) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
@@ -43,12 +45,13 @@ public class Service implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id", unique = true, nullable = false)
-    public int getServiceId() {
+    public Integer getServiceId() {
         return this.serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(Integer serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -80,7 +83,7 @@ public class Service implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "services")
-     @JsonIgnore
+    @JsonIgnore
     public Set<Salon> getSalons() {
         return this.salons;
     }

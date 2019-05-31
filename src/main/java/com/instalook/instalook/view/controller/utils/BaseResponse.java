@@ -6,16 +6,16 @@ import org.springframework.http.HttpStatus;
  *
  * @author Amer Shaker
  */
-public class Response {
+public class BaseResponse {
 
     private HttpStatus statusCode;
     private String statusMessage;
 
-    public Response() {
-        
+    public BaseResponse() {
+
     }
 
-    public Response(HttpStatus statusCode, String statusMessage) {
+    public BaseResponse(HttpStatus statusCode, String statusMessage) {
         this.statusCode = statusCode;
         this.statusMessage = statusMessage;
     }

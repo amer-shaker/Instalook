@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "users",
-        catalog = "instalook",
+        catalog = "heroku_858654a6d05adcb",
         uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
 public class User implements java.io.Serializable,Cloneable {
@@ -146,7 +146,7 @@ public class User implements java.io.Serializable,Cloneable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_save_post", catalog = "instalook",
+    @JoinTable(name = "user_save_post", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
@@ -160,7 +160,7 @@ public class User implements java.io.Serializable,Cloneable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_follow_salon", catalog = "instalook",
+    @JoinTable(name = "user_follow_salon", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
@@ -174,7 +174,7 @@ public class User implements java.io.Serializable,Cloneable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_like_post", catalog = "instalook",
+    @JoinTable(name = "user_like_post", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "user_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
@@ -195,5 +195,4 @@ public class User implements java.io.Serializable,Cloneable {
     public void setPoints(Set<Point> points) {
         this.points = points;
     }
-
 }

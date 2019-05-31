@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.SalonDAO;
 import com.instalook.instalook.model.dal.entity.Salon;
-import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
@@ -15,12 +9,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Ahmed moatasem
+ * @author Amer Shaker
  */
 @Repository
 @Transactional
@@ -29,6 +25,31 @@ public class SalonDAOImpl implements SalonDAO {
     @Autowired(required = true)
     private SessionFactory sessionFactory;
     Session session1;
+
+    @Override
+    public int addSalon(Salon salon) {
+        Session session = null;
+        int id = 0;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            id = (Integer) session.save(salon);
+            System.out.println(id);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+//            if (session != null) {
+//                session.clear();
+//                session.close();
+//            }
+        }
+
+        return id;
+    }
 
     @Override
     public List<Salon> getAllSalons() {
@@ -46,12 +67,11 @@ public class SalonDAOImpl implements SalonDAO {
         return salons;
 
     }
-    
-     @Override
-    public List<Salon> getAllSalonsById(int SalonId) {
-        
-         if(session1==null)
-        {
+
+    @Override
+    public List<Salon> getSalonById(int SalonId) {
+
+        if (session1 == null) {
             session1 = sessionFactory.openSession();
         }
         Salon salon = (Salon) session1.load(Salon.class, SalonId);
@@ -63,34 +83,4 @@ public class SalonDAOImpl implements SalonDAO {
 
         return crit.list();
     }
-    
-
-//    @Override
-//    public List<Salon> getAllSallonsByCategory(String salonType) {
-//
-//        Session session = null ;
-//        List<Salon> salonList = null ;
-//
-//        try {
-//            session = sessionFactory.openSession();
-//            Criteria criteria = session.createCriteria(Salon.class)
-//                    .add(Restrictions.eq("salonType", salonType));
-//            salonList =  criteria.list();
-//        } catch (HibernateException ex) {
-//            System.err.println(ex.getMessage());
-//        } finally {
-//            if (session != null) {
-//                session.clear();
-//                session.close();
-//            }
-//        }
-//    
-//
-//      return salonList;
-//    }
-
-   
 }
-    
-      
-

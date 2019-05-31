@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.BarbersDAO;
@@ -76,7 +71,7 @@ public class BarbersDAOImpl implements BarbersDAO {
         updatedBarber.setIsAvailable(barber.getIsAvailable());
         updatedBarber.setRole(barber.getRole());
         updatedBarber.setSalon(barber.getSalon());
-        
+
         session.evict(updatedBarber);
         session.update(barber);
         transaction.commit();
@@ -104,5 +99,4 @@ public class BarbersDAOImpl implements BarbersDAO {
         session.close();
         return result;
     }
-
 }

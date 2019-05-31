@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -25,13 +27,12 @@ import org.springframework.web.servlet.View;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "salons",
-        catalog = "instalook",
+        catalog = "heroku_858654a6d05adcb",
         uniqueConstraints = @UniqueConstraint(columnNames = "salon_email")
 )
 public class Salon implements java.io.Serializable {
 
-    private int salonId;
-
+    private Integer salonId;
     private String salonName;
     private String salonEmail;
     private String salonLocation;
@@ -46,7 +47,7 @@ public class Salon implements java.io.Serializable {
     public Salon() {
     }
 
-    public Salon(int salonId, String salonName, String salonEmail, String salonLocation, String salonType) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
@@ -54,7 +55,7 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
-    public Salon(int salonId, String salonName, String salonEmail, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
@@ -69,12 +70,13 @@ public class Salon implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "salon_id", unique = true, nullable = false)
-    public int getSalonId() {
+    public Integer getSalonId() {
         return this.salonId;
     }
 
-    public void setSalonId(int salonId) {
+    public void setSalonId(Integer salonId) {
         this.salonId = salonId;
     }
 
@@ -113,13 +115,10 @@ public class Salon implements java.io.Serializable {
     public void setSalonType(String salonType) {
         this.salonType = salonType;
     }
-    
-    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salons")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon") 
-   // @JsonIgnore 
 
+    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salons")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
     @JsonIgnore
-   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salon")
     public Set<Barber> getBarbers() {
         return this.barbers;
     }
@@ -146,9 +145,9 @@ public class Salon implements java.io.Serializable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinTable(name = "salon_provide_services", catalog = "instalook",
+    @JoinTable(name = "salon_provide_services", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "salon_id", nullable = false, updatable = false)},
             inverseJoinColumns = {

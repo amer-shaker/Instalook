@@ -1,4 +1,4 @@
-package com.instalook.instalook.view.controller.authentication;
+package com.instalook.instalook.view.controller.salon;
 
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
@@ -21,12 +21,13 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Mohamed Ramadan
  */
 @RestController
+@RequestMapping("/service")
 public class SalonServicesRestController {
 
     @Autowired
     private SalonServicesService salonServicesService;
 
-    @RequestMapping("/getservices/{salonId}")
+    @RequestMapping(value = "/getservices/{salonId}")
     public List<Service> getSalonServices(@PathVariable("salonId") int id) {
         return salonServicesService.getAllServicesOfSalon(id);
     }
@@ -36,22 +37,20 @@ public class SalonServicesRestController {
         return salonServicesService.getAllSalonProvideService(serviceName);
     }
 
-    @RequestMapping("/deletservice/{serviceId}")
+    @RequestMapping("/delete/{serviceId}")
     public void deleteServiceById(@PathVariable("serviceId") int serviceId) {
         salonServicesService.deletServiceFromSalon(serviceId);
     }
 
-    @RequestMapping(value = "/salon/addservice", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
         System.out.println("Service name json" + service.getServiceName());
         System.out.println("Service name json" + service.getServiceType());
-
         int id = salonServicesService.insertServiceToSalon(salonId, service);
-        if (id == 0) {
+        if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/salon/addservice/{id}")
+            headers.setLocation(ucBuilder.path("/add/{id}")
                     .buildAndExpand(service.getServiceId()).toUri());
-
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -74,5 +73,4 @@ public class SalonServicesRestController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
-
 }

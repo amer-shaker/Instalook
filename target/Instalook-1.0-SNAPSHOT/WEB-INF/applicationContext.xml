@@ -18,7 +18,7 @@
     <context:property-placeholder location="classpath:application.properties" />
 
     <!-- 
-    DataSource 
+    DataSource
     -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"

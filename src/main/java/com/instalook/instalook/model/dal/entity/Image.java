@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "images",
-        catalog = "instalook"
+        catalog = "heroku_858654a6d05adcb"
 )
 public class Image implements java.io.Serializable {
 

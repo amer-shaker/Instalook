@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.service.impl;
 
 import com.instalook.instalook.model.dal.dao.SalonDAO;
@@ -16,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author Ahmed moatasem
+ * @author Amer Shaker
  */
 @Service
 @Transactional
@@ -25,23 +21,18 @@ public class SalonServiceImpl implements SalonService {
     private SalonDAO salonDAO;
 
     @Override
+    public int addSalon(Salon salon) {
+        return salonDAO.addSalon(salon);
+    }
+
+    @Override
     public List<Salon> getAllSalons() {
 
         return salonDAO.getAllSalons();
     }
-    
+
     @Override
     public List<Salon> getAllSalonsById(int SalonId) {
-        
-        return salonDAO.getAllSalonsById(SalonId);
+        return salonDAO.getSalonById(SalonId);
     }
-
-//    @Override
-//    public List<Salon> getAllSallonsByCategory(String salonType) {
-//        
-//        return salonDAO.getAllSallonsByCategory(salonType);
-//    }
-
-    
-
 }
