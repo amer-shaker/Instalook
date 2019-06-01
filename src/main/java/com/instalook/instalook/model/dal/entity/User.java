@@ -23,7 +23,7 @@ import javax.persistence.UniqueConstraint;
         catalog = "heroku_858654a6d05adcb",
         uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
-public class User implements java.io.Serializable {
+public class User implements java.io.Serializable, Cloneable {
 
     private Integer userId;
     private String firstName;

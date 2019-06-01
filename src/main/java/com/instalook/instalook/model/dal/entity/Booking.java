@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "bookings",
         catalog = "heroku_858654a6d05adcb"
 )
-public class Booking implements java.io.Serializable {
+public class Booking implements java.io.Serializable, Cloneable {
 
     private Integer bookingId;
     private Barber barbers;

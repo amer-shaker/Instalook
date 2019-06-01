@@ -21,9 +21,10 @@ import javax.persistence.Table;
 @Table(name = "barbers",
         catalog = "heroku_858654a6d05adcb"
 )
-public class Barber implements java.io.Serializable {
+public class Barber implements java.io.Serializable, Cloneable {
 
     private Integer barberId;
+    @JsonIgnore
     private Salon salon;
     private String firstName;
     private String lastName;
