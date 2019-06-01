@@ -90,10 +90,14 @@ public class BookingDAOImpl implements BookingDAO {
         session.beginTransaction();
         User user = (User) session.load(User.class, bookingDTO.getUserId());
         Barber barber = (Barber) session.load(Barber.class, bookingDTO.getBarberId());
+        System.out.println("barber "+ barber.getFirstName()+"  "+ user.getFirstName());
+        
         booking.setUser(user);
         booking.setBarbers(barber);
         booking.setBookingDateTime(bookingDTO.getDate());
         Integer id = (Integer) session.save(booking);
+        session.flush();
+        session.getTransaction().commit();
         return id;
 
     }

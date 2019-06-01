@@ -142,13 +142,15 @@ public class Salon implements java.io.Serializable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JsonIgnore
     @JoinTable(name = "salon_provide_services", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "salon_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
                 @JoinColumn(name = "service_id", nullable = false, updatable = false)})
+    
+    
     public Set<Service> getServices() {
         return this.services;
     }

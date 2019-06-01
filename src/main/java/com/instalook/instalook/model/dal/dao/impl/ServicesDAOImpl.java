@@ -74,12 +74,14 @@ public class ServicesDAOImpl implements ServicesDAO {
 
         try {
             session = sessionFactory.openSession();
-            Salon salon = (Salon) session.load(Salon.class, salonId);
             session.beginTransaction();
-            salon.getServices().add(salonService);
-            salonService.getSalons().add(salon);
 
+            Salon salon = (Salon) session.load(Salon.class, salonId);
+            salon.getServices().add(salonService);
+           // salonService.getSalons().add(salon);
+            System.out.println("salon " + salon.getSalonName());
             id = (Integer) session.save(salon);
+            session.flush();
             session.getTransaction().commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
