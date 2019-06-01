@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,14 +20,14 @@ import javax.persistence.Table;
 )
 public class Image implements java.io.Serializable {
 
-    private int imageId;
+    private Integer imageId;
     private Salon salon;
     private byte[] image;
 
     public Image() {
     }
 
-    public Image(int imageId) {
+    public Image(Integer imageId) {
         this.imageId = imageId;
     }
 
@@ -36,18 +38,19 @@ public class Image implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id", unique = true, nullable = false)
-    public int getImageId() {
+    public Integer getImageId() {
         return this.imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(Integer imageId) {
         this.imageId = imageId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salon_id")
-    @JsonIgnore 
+    @JsonIgnore
     public Salon getSalon() {
         return this.salon;
     }
