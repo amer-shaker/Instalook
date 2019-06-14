@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.BookingDAO;
 import com.instalook.instalook.model.dal.dto.BookingDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.entity.Booking;
-import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.User;
 
 import java.util.List;
@@ -19,7 +13,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -90,10 +83,14 @@ public class BookingDAOImpl implements BookingDAO {
         session.beginTransaction();
         User user = (User) session.load(User.class, bookingDTO.getUserId());
         Barber barber = (Barber) session.load(Barber.class, bookingDTO.getBarberId());
+        System.out.println("barber "+ barber.getFirstName()+"  "+ user.getFirstName());
+        
         booking.setUser(user);
         booking.setBarbers(barber);
         booking.setBookingDateTime(bookingDTO.getDate());
         Integer id = (Integer) session.save(booking);
+        session.flush();
+        session.getTransaction().commit();
         return id;
 
     }

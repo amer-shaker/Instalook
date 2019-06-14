@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.dao;
 
 import com.instalook.instalook.model.dal.dto.BookingDTO;
-import com.instalook.instalook.model.dal.entity.Booking;
 import java.util.List;
 
 /**
@@ -21,6 +15,5 @@ public interface BookingDAO {
 
     public abstract boolean cancelBooking(int bookingId);
 
-    public Integer insertNewBooking(BookingDTO bookingDTO) ;
-
+    public Integer insertNewBooking(BookingDTO bookingDTO);
 }

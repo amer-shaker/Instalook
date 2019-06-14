@@ -44,8 +44,6 @@ public class SalonServicesRestController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
-        System.out.println("Service name json" + service.getServiceName());
-        System.out.println("Service name json" + service.getServiceType());
         int id = salonServicesService.insertServiceToSalon(salonId, service);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();

@@ -32,6 +32,7 @@ public class Salon implements java.io.Serializable {
     private Integer salonId;
     private String salonName;
     private String salonEmail;
+    private String salonPassword;
     private String salonLocation;
     private String salonType;
     private Set<Barber> barbers = new HashSet<>(0);
@@ -44,18 +45,20 @@ public class Salon implements java.io.Serializable {
     public Salon() {
     }
 
-    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
+        this.salonPassword = salonPassword;
         this.salonLocation = salonLocation;
         this.salonType = salonType;
     }
 
-    public Salon(Integer salonId, String salonName, String salonEmail, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
+        this.salonPassword = salonPassword;
         this.salonLocation = salonLocation;
         this.salonType = salonType;
         this.barbers = barbers;
@@ -88,16 +91,25 @@ public class Salon implements java.io.Serializable {
 
     @Column(name = "salon_email", unique = true, nullable = false, length = 100)
     public String getSalonEmail() {
-        return this.salonEmail;
+        return salonEmail;
     }
 
     public void setSalonEmail(String salonEmail) {
         this.salonEmail = salonEmail;
     }
 
+    @Column(name = "salon_password", nullable = false, length = 100)
+    public String getSalonPassword() {
+        return salonPassword;
+    }
+
+    public void setSalonPassword(String salonPassword) {
+        this.salonPassword = salonPassword;
+    }
+
     @Column(name = "salon_location", nullable = false, length = 100)
     public String getSalonLocation() {
-        return this.salonLocation;
+        return salonLocation;
     }
 
     public void setSalonLocation(String salonLocation) {
@@ -113,7 +125,6 @@ public class Salon implements java.io.Serializable {
         this.salonType = salonType;
     }
 
-    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "salons")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")
     @JsonIgnore
     public Set<Barber> getBarbers() {
@@ -142,13 +153,14 @@ public class Salon implements java.io.Serializable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(name = "salon_provide_services", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "salon_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
                 @JoinColumn(name = "service_id", nullable = false, updatable = false)})
+
     public Set<Service> getServices() {
         return this.services;
     }
