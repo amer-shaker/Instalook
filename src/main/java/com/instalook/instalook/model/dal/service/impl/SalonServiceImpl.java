@@ -21,13 +21,17 @@ public class SalonServiceImpl implements SalonService {
     private SalonDAO salonDAO;
 
     @Override
-    public int addSalon(Salon salon) {
-        return salonDAO.addSalon(salon);
+    public Salon login(String email, String password) {
+        return salonDAO.login(email, password);
+    }
+
+    @Override
+    public int register(Salon salon) {
+        return salonDAO.register(salon);
     }
 
     @Override
     public List<Salon> getAllSalons() {
-
         return salonDAO.getAllSalons();
     }
 

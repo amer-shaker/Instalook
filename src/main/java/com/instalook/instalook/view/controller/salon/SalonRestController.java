@@ -1,6 +1,7 @@
 package com.instalook.instalook.view.controller.salon;
 
 import com.instalook.instalook.model.dal.entity.Salon;
+import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.SalonService;
 import com.instalook.instalook.view.controller.utils.BaseResponse;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,18 +30,37 @@ public class SalonRestController {
     @Autowired
     private SalonService salonService;
 
-    @RequestMapping(value = "/add",
+    @RequestMapping(value = "/login",
+            method = RequestMethod.POST,
+            produces = "application/json")
+    public Object login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        Salon salon = salonService.login(email, password);
+        BaseResponse responseBody = new BaseResponse();
+
+        if (salon != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return salon;
+        } else {
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Incorrect credentials");
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/register",
             method = RequestMethod.POST,
             produces = "application/json",
             consumes = "application/json")
     public ResponseEntity<BaseResponse> register(@RequestBody Salon salon, UriComponentsBuilder ucBuilder) {
-        int id = salonService.addSalon(salon);
+        int id = salonService.register(salon);
         BaseResponse responseBody = new BaseResponse();
 
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setLocation(ucBuilder.path("/add/{id}")
+            headers.setLocation(ucBuilder.path("/register/{id}")
                     .buildAndExpand(salon.getSalonId()).toUri());
 
             ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody,

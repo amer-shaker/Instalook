@@ -10,7 +10,9 @@ import com.instalook.instalook.model.dal.entity.Salon;
  */
 public interface SalonDAO {
 
-    public abstract int addSalon(Salon salon);
+    public abstract Salon login(String email, String password);
+
+    public abstract int register(Salon salon);
 
     public abstract List<Salon> getAllSalons();
 

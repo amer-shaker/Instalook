@@ -27,7 +27,30 @@ public class SalonDAOImpl implements SalonDAO {
     Session session1;
 
     @Override
-    public int addSalon(Salon salon) {
+    public Salon login(String email, String password) {
+        Session session = null;
+        Salon salon = null;
+
+        try {
+            session = sessionFactory.openSession();
+            Criteria criteria = session.createCriteria(Salon.class)
+                    .add(Restrictions.eq("email", email))
+                    .add(Restrictions.eq("password", password));
+            salon = (Salon) criteria.uniqueResult();
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            /*if (session != null) {
+                session.clear();
+                session.close();
+            }*/
+        }
+
+        return salon;
+    }
+
+    @Override
+    public int register(Salon salon) {
         Session session = null;
         int id = 0;
 

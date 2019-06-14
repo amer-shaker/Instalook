@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface SalonService {
 
-    public abstract int addSalon(Salon salon);
+    public abstract Salon login(String email, String password);
+
+    public abstract int register(Salon salon);
 
     public abstract List<Salon> getAllSalons();
 
