@@ -34,8 +34,8 @@ public class SalonDAOImpl implements SalonDAO {
         try {
             session = sessionFactory.openSession();
             Criteria criteria = session.createCriteria(Salon.class)
-                    .add(Restrictions.eq("email", email))
-                    .add(Restrictions.eq("password", password));
+                    .add(Restrictions.eq("salonEmail", email))
+                    .add(Restrictions.eq("salonPassword", password));
             salon = (Salon) criteria.uniqueResult();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
