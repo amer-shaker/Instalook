@@ -1,6 +1,7 @@
 package com.instalook.instalook.model.dal.service.impl;
 
 import com.instalook.instalook.model.dal.dao.ServicesDAO;
+import com.instalook.instalook.model.dal.dto.ServiceDTO;
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
 import com.instalook.instalook.model.dal.service.SalonServicesService;
@@ -25,8 +26,8 @@ public class SalonServicesServiceImpl implements SalonServicesService {
     }
 
     @Override
-    public int insertServiceToSalon(int salonId, Service salonService) {
-        return userDAO.insertServiceToSalon(salonId, salonService);
+    public int insertServiceToSalon(ServiceDTO salonService) {
+        return userDAO.insertServiceToSalon(salonService);
     }
 
     @Override

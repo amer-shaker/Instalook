@@ -1,5 +1,6 @@
 package com.instalook.instalook.view.controller.salon;
 
+import com.instalook.instalook.model.dal.dto.ServiceDTO;
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
 import com.instalook.instalook.model.dal.service.SalonServicesService;
@@ -43,12 +44,12 @@ public class SalonServicesRestController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Void> addServiceToSalon(@RequestBody Service service, UriComponentsBuilder ucBuilder, @RequestParam int salonId) {
-        int id = salonServicesService.insertServiceToSalon(salonId, service);
+    public ResponseEntity<Void> addServiceToSalon(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
+        int id = salonServicesService.insertServiceToSalon(service);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(ucBuilder.path("/add/{id}")
-                    .buildAndExpand(service.getServiceId()).toUri());
+                    .buildAndExpand(service.getService().getServiceId()).toUri());
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

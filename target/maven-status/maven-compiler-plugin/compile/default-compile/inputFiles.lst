@@ -3,6 +3,7 @@ E:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\SalonDAO.java
 E:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Point.java
 E:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Salon.java
 E:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\SalonServicesServiceImpl.java
+E:\Instalook\src\main\java\com\instalook\instalook\model\dal\dto\ServiceDTO.java
 E:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\User.java
 E:\Instalook\src\main\java\com\instalook\instalook\view\controller\authentication\UserRestController.java
 E:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BookingServiceImpl.java
