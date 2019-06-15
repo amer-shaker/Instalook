@@ -33,7 +33,7 @@ public class SalonRestController {
     @RequestMapping(value = "/login",
             method = RequestMethod.POST,
             produces = "application/json")
-    public Object login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public Object login(@RequestParam("salonEmail") String email, @RequestParam("salonPassword") String password) {
         Salon salon = salonService.login(email, password);
         BaseResponse responseBody = new BaseResponse();
 
