@@ -84,8 +84,10 @@ public class SalonRestController {
         return salonsList;
     }
 
-    @RequestMapping("/getSalonsById/{salonId}")
-    public List<Salon> getSalons(@PathVariable("salonId") int id) {
-        return salonService.getAllSalonsById(id);
+    @RequestMapping(value = "/getSalonById",
+            method = RequestMethod.POST,
+            produces = "application/json")
+    public Salon getSalonById(@RequestParam("salonId") Integer salonId) {
+        return salonService.getSalonById(salonId);
     }
 }

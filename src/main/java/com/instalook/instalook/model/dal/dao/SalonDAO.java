@@ -14,7 +14,7 @@ public interface SalonDAO {
 
     public abstract int register(Salon salon);
 
-    public abstract List<Salon> getAllSalons();
+    public abstract Salon getSalonById(int salonId);
 
-    public abstract List<Salon> getSalonById(int SalonId);
+    public abstract List<Salon> getAllSalons();
 }

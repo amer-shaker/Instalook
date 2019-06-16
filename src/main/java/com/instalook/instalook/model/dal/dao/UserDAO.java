@@ -10,7 +10,7 @@ public interface UserDAO {
 
     public static final String USER_ID = "USER_ID";
 
-    public abstract int register(User user);
-
     public abstract User login(String email, String password);
+
+    public abstract int register(User user);
 }

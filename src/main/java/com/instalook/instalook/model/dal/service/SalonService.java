@@ -14,7 +14,7 @@ public interface SalonService {
 
     public abstract int register(Salon salon);
 
-    public abstract List<Salon> getAllSalons();
+    public abstract Salon getSalonById(int salonId);
 
-    public abstract List<Salon> getAllSalonsById(int SalonId);
+    public abstract List<Salon> getAllSalons();
 }

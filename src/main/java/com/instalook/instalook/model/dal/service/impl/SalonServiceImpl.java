@@ -36,7 +36,7 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    public List<Salon> getAllSalonsById(int SalonId) {
-        return salonDAO.getSalonById(SalonId);
+    public Salon getSalonById(int salonId) {
+        return salonDAO.getSalonById(salonId);
     }
 }

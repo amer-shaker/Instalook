@@ -92,18 +92,15 @@ public class SalonDAOImpl implements SalonDAO {
     }
 
     @Override
-    public List<Salon> getSalonById(int SalonId) {
+    public Salon getSalonById(int salonId) {
 
         if (session1 == null) {
             session1 = sessionFactory.openSession();
         }
-        Salon salon = (Salon) session1.load(Salon.class, SalonId);
-        Criteria crit = session1.createCriteria(Salon.class, "s")
-                .add(Restrictions.eq("salonId", salon.getSalonId()));
-        for (Salon s : (List<Salon>) crit.list()) {
-            System.out.println("salon : " + s.getSalonName());
-        }
 
-        return crit.list();
+        Salon salon = (Salon) session1.load(Salon.class, salonId);
+        Criteria criteria = session1.createCriteria(Salon.class, "s")
+                .add(Restrictions.eq("salonId", salon.getSalonId()));
+        return (Salon) criteria.uniqueResult();
     }
 }
