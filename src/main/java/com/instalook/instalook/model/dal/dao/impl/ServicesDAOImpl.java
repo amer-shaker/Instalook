@@ -1,6 +1,7 @@
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.ServicesDAO;
+import com.instalook.instalook.model.dal.dto.ServiceDTO;
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
 import java.util.ArrayList;
@@ -68,16 +69,15 @@ public class ServicesDAOImpl implements ServicesDAO {
     }
 
     @Override
-    public int insertServiceToSalon(int salonId, Service salonService) {
+    public int insertServiceToSalon(ServiceDTO serviceDTO) {
         Session session = null;
         int id = 0;
 
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-
-            Salon salon = (Salon) session.load(Salon.class, salonId);
-            salon.getServices().add(salonService);
+            Salon salon = (Salon) session.load(Salon.class, serviceDTO.getSalonId());
+            salon.getServices().add(serviceDTO.getService());
             id = (Integer) session.save(salon);
             session.flush();
             session.getTransaction().commit();

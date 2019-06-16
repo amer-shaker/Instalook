@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.dao;
 
+import com.instalook.instalook.model.dal.dto.ServiceDTO;
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
 import java.util.List;
@@ -14,7 +15,7 @@ public interface ServicesDAO {
 
     public abstract List<Salon> getAllSalonProvideService(String serviceName);
 
-    public abstract int insertServiceToSalon(int salonId, Service salonService);
+    public abstract int insertServiceToSalon(ServiceDTO salonService);
 
     public abstract int updateSalonService(Service salonService);
 
