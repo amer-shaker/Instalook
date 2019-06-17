@@ -24,7 +24,6 @@ public class SalonDAOImpl implements SalonDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
-    Session session1;
 
     @Override
     public Salon login(String email, String password) {
@@ -75,6 +74,26 @@ public class SalonDAOImpl implements SalonDAO {
     }
 
     @Override
+    public Salon getSalonById(int salonId) {
+        Session session = null;
+        Salon salon = null;
+
+        try {
+            session = sessionFactory.openSession();
+            salon = (Salon) session.get(Salon.class, salonId);
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            /*if (session != null) {
+                session.clear();
+                session.close();
+            }*/
+        }
+
+        return salon;
+    }
+
+    @Override
     public List<Salon> getAllSalons() {
 
         Session session = sessionFactory.openSession();
@@ -88,19 +107,5 @@ public class SalonDAOImpl implements SalonDAO {
 
         session.getTransaction().commit();
         return salons;
-
-    }
-
-    @Override
-    public Salon getSalonById(int salonId) {
-
-        if (session1 == null) {
-            session1 = sessionFactory.openSession();
-        }
-
-        Salon salon = (Salon) session1.load(Salon.class, salonId);
-        Criteria criteria = session1.createCriteria(Salon.class, "s")
-                .add(Restrictions.eq("salonId", salon.getSalonId()));
-        return (Salon) criteria.uniqueResult();
     }
 }

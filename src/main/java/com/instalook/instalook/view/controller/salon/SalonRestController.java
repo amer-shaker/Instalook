@@ -1,7 +1,6 @@
 package com.instalook.instalook.view.controller.salon;
 
 import com.instalook.instalook.model.dal.entity.Salon;
-import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.SalonService;
 import com.instalook.instalook.view.controller.utils.BaseResponse;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,16 +76,16 @@ public class SalonRestController {
         }
     }
 
-    @RequestMapping(value = "/getSalons", method = RequestMethod.GET, headers = "Accept=application/json")
-    public List<Salon> getSalons() {
-        List<Salon> salonsList = salonService.getAllSalons();
-        return salonsList;
-    }
-
     @RequestMapping(value = "/getSalonById",
             method = RequestMethod.POST,
             produces = "application/json")
     public Salon getSalonById(@RequestParam("salonId") Integer salonId) {
         return salonService.getSalonById(salonId);
+    }
+
+    @RequestMapping(value = "/getSalons", method = RequestMethod.GET, headers = "Accept=application/json")
+    public List<Salon> getSalons() {
+        List<Salon> salonsList = salonService.getAllSalons();
+        return salonsList;
     }
 }

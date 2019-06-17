@@ -31,12 +31,12 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    public List<Salon> getAllSalons() {
-        return salonDAO.getAllSalons();
+    public Salon getSalonById(int salonId) {
+        return salonDAO.getSalonById(salonId);
     }
 
     @Override
-    public Salon getSalonById(int salonId) {
-        return salonDAO.getSalonById(salonId);
+    public List<Salon> getAllSalons() {
+        return salonDAO.getAllSalons();
     }
 }

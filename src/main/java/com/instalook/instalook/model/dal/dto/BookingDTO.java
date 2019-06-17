@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.instalook.instalook.model.dal.dto;
 
 import java.io.Serializable;
@@ -14,9 +9,9 @@ import java.util.Date;
  */
 public class BookingDTO implements Serializable {
 
-    int userId;
-    int barberId;
-    Date date;
+    private int userId;
+    private int barberId;
+    private Date date;
 
     public int getUserId() {
         return userId;
@@ -39,9 +34,6 @@ public class BookingDTO implements Serializable {
     }
 
     public void setDate(Date date) {
-       
         this.date = date;
-
     }
-
 }
