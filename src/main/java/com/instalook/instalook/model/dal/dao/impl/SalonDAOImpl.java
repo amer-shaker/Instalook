@@ -122,12 +122,14 @@ public class SalonDAOImpl implements SalonDAO {
         // sum
         Object result[] = (Object[]) listResult.get(0);
         Long sumRes1ult = (Long) result[0];
+        System.out.println("sum: " + sumRes1ult);
         long sum = sumRes1ult.longValue();
 
         //count
         Long countResiult = (Long) result[1];
+        System.out.println("count: " + countResiult);
         long count = countResiult.longValue();
 
-        return  (sum/count);
+        return (sum / count);
     }
 }
