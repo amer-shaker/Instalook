@@ -1,6 +1,7 @@
 package com.instalook.instalook.model.dal.service.impl;
 
 import com.instalook.instalook.model.dal.dao.BarbersDAO;
+import com.instalook.instalook.model.dal.dto.BarberDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.service.BarbersService;
 import java.util.List;
@@ -30,7 +31,7 @@ public class BarbersServiceImpl implements BarbersService {
     }
 
     @Override
-    public int addBarber(Barber barber) {
+    public int addBarber(BarberDTO barber) {
         return barbersDAO.addBarber(barber);
     }
 

@@ -1,6 +1,7 @@
 package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.BarbersDAO;
+import com.instalook.instalook.model.dal.dto.BarberDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.entity.Salon;
 import java.util.List;
@@ -38,13 +39,20 @@ public class BarbersDAOImpl implements BarbersDAO {
     }
 
     @Override
-    public int addBarber(Barber barber) {
+    public int addBarber(BarberDTO newBarber) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        int newBarberId = (int) session.save(barber);
-        session.getTransaction().commit();
-        session.close();
-        return newBarberId;
+        int id = 0;
+        try {
+            session.beginTransaction();
+            Salon salon = (Salon) session.load(Salon.class, newBarber.getSalonId());
+            salon.getBarbers().add(newBarber.getBarber());
+            id = (Integer) session.save(salon);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception ex) {
+            System.err.println("hiiiiiiiiiiiiiiiiiiiiiiii"+ex.getMessage());
+        }
+        return id;
     }
 
     @Override

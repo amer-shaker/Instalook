@@ -39,4 +39,9 @@ public class SalonServiceImpl implements SalonService {
     public List<Salon> getAllSalons() {
         return salonDAO.getAllSalons();
     }
+
+    @Override
+    public long getSalonRate(int SalonId) {
+        return salonDAO.getSalonRate(SalonId);
+    }
 }

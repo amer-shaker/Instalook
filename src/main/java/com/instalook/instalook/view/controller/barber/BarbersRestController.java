@@ -1,5 +1,6 @@
 package com.instalook.instalook.view.controller.barber;
 
+import com.instalook.instalook.model.dal.dto.BarberDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.service.BarbersService;
 import java.util.List;
@@ -50,7 +51,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public int addBarber(@RequestBody Barber barber) {
+    public int addBarber(@RequestBody BarberDTO barber) {
         return barbersService.addBarber(barber);
     }
 
