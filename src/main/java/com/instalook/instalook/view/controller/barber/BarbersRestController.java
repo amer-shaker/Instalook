@@ -99,5 +99,4 @@ public class BarbersRestController {
     public int deleteBarber(@RequestParam("id") Integer barberId) {
         return barbersService.deleteBarber(barberId);
     }
-
 }

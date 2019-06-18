@@ -18,20 +18,20 @@ import javax.persistence.Table;
  * @author Amer Shaker
  */
 @Entity
-@Table(name = "barbers",
+@Table(name = "barber",
         catalog = "heroku_858654a6d05adcb"
 )
 public class Barber implements java.io.Serializable, Cloneable {
 
     private Integer barberId;
-    @JsonIgnore
-    private Salon salon;
     private String firstName;
     private String lastName;
     private String role;
     private Integer rate;
     private byte[] barberPicture;
     private int isAvailable;
+    @JsonIgnore
+    private Salon salon;
     private Set<Booking> bookings = new HashSet<>(0);
 
     public Barber() {
