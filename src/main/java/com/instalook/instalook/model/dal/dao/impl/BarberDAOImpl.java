@@ -28,8 +28,9 @@ public class BarberDAOImpl implements BarberDAO {
 
     @Override
     public List<Barber> getAllBarbers(Integer salonId) {
-        Salon currentSalon = (Salon) sessionFactory.openSession().load(Salon.class, salonId);
-        Criteria criteria = sessionFactory.openSession().createCriteria(Barber.class);
+        Session session = sessionFactory.openSession();
+        Salon currentSalon = (Salon) session.load(Salon.class, salonId);
+        Criteria criteria = session.createCriteria(Barber.class);
         criteria.add(Restrictions.eq("salon", currentSalon));
         return criteria.list();
     }

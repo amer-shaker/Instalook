@@ -27,26 +27,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SalonServicesRestController {
 
     @Autowired
-    private SalonServiceService salonServicesService;
+    private SalonServiceService salonServiceService;
 
     @RequestMapping(value = "/getAllServices")
     public List<Service> getSalonServices(@RequestParam("salonId") Integer salonId) {
-        return salonServicesService.getAllServices(salonId);
+        return salonServiceService.getAllServices(salonId);
     }
 
     @RequestMapping("/getsalonsprovide/{servicename}")
     public List<Salon> getSalonsProvidedService(@PathVariable("servicename") String serviceName) {
-        return salonServicesService.getAllSalonProvideService(serviceName);
+        return salonServiceService.getAllSalonProvideService(serviceName);
     }
 
     @RequestMapping("/delete/{serviceId}")
     public void deleteServiceById(@PathVariable("serviceId") int serviceId) {
-        salonServicesService.deletServiceFromSalon(serviceId);
+        salonServiceService.deletServiceFromSalon(serviceId);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> addServiceToSalon(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
-        int id = salonServicesService.insertServiceToSalon(service);
+        int id = salonServiceService.insertServiceToSalon(service);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(ucBuilder.path("/add/{id}")
@@ -62,7 +62,7 @@ public class SalonServicesRestController {
         System.out.println("Service name json" + service.getServiceName());
         System.out.println("Service name json" + service.getServiceType());
 
-        int id = salonServicesService.updateSalonService(service);
+        int id = salonServiceService.updateSalonService(service);
         if (id == 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(ucBuilder.path("/salon/update/{id}")

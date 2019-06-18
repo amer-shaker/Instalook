@@ -17,13 +17,14 @@ com\instalook\instalook\model\dal\entity\Service.class
 com\instalook\instalook\model\dal\service\UserService.class
 com\instalook\instalook\model\dal\dto\BookingDTO.class
 com\instalook\instalook\model\dal\service\impl\BookingServiceImpl.class
-com\instalook\instalook\model\dal\service\BarbersService.class
+com\instalook\instalook\model\dal\service\impl\BarberServiceImpl.class
+com\instalook\instalook\view\controller\barber\BarberRestController.class
 com\instalook\instalook\view\controller\authentication\UserRestController.class
 com\instalook\instalook\model\dal\service\impl\SalonServiceServiceImpl.class
+com\instalook\instalook\model\dal\service\BarberService.class
 com\instalook\instalook\view\controller\booking\BookingRestController.class
 com\instalook\instalook\model\dal\entity\Barber.class
 com\instalook\instalook\model\dal\dao\SalonDAO.class
-com\instalook\instalook\model\dal\service\impl\BarbersServiceImpl.class
 com\instalook\instalook\model\dal\dto\BarberDTO.class
 com\instalook\instalook\model\dal\entity\Post.class
 com\instalook\instalook\model\dal\service\impl\UserServiceImpl.class
@@ -33,5 +34,4 @@ com\instalook\instalook\model\dal\entity\User.class
 com\instalook\instalook\model\dal\entity\Point.class
 com\instalook\instalook\model\dal\dao\impl\ServiceDAOImpl.class
 com\instalook\instalook\model\dal\dao\ServiceDAO.class
-com\instalook\instalook\view\controller\barber\BarbersRestController.class
 com\instalook\instalook\view\controller\salon\SalonServicesRestController.class

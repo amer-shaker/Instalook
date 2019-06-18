@@ -1,6 +1,7 @@
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\SalonServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\view\controller\booking\BookingRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\User.java
+D:\Instalook\src\main\java\com\instalook\instalook\view\controller\barber\BarberRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\SalonDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\ServiceDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\view\controller\salon\SalonRestController.java
@@ -16,12 +17,13 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\UserSe
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BookingServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\UserDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BarberDAO.java
+D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BarberServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\SalonDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BookingDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Point.java
+D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BarberService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\UserDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Post.java
-D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BarbersService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\ServiceDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\UserService.java
 D:\Instalook\src\main\java\com\instalook\instalook\view\controller\utils\BaseResponse.java
@@ -32,6 +34,4 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Service.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BookingService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\BarberDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Salon.java
-D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BarbersServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\SalonService.java
-D:\Instalook\src\main\java\com\instalook\instalook\view\controller\barber\BarbersRestController.java

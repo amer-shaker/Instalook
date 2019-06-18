@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author Amer Shaker
  */
 @Entity
-@Table(name = "barber",
+@Table(name = "barbers",
         catalog = "heroku_858654a6d05adcb"
 )
 public class Barber implements java.io.Serializable, Cloneable {
@@ -142,5 +142,4 @@ public class Barber implements java.io.Serializable, Cloneable {
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
     }
-
 }
