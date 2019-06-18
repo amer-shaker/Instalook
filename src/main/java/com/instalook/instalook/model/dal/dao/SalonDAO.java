@@ -17,4 +17,6 @@ public interface SalonDAO {
     public abstract Salon getSalonById(int salonId);
 
     public abstract List<Salon> getAllSalons();
+    
+    public abstract long getSalonRate(int SalonId);
 }

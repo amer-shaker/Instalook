@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.service;
 
+import com.instalook.instalook.model.dal.dto.BarberDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface BarbersService {
 
     public abstract Barber getBarberById(Integer id);
 
-    public abstract int addBarber(Barber barber);
+    public abstract int addBarber(BarberDTO barber);
 
     public abstract void updateBarberData(Barber barber);
 

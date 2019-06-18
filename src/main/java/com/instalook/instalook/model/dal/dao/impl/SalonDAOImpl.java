@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -107,5 +108,26 @@ public class SalonDAOImpl implements SalonDAO {
 
         session.getTransaction().commit();
         return salons;
+    }
+
+    @Override
+    public long getSalonRate(int salonId) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        String hql = "select sum(rate), count(*) from Barber where salon.salonId= :id";
+        Query query = session.createQuery(hql).setParameter("id", salonId);
+        List listResult = query.list();
+
+        // sum
+        Object result[] = (Object[]) listResult.get(0);
+        Long sumRes1ult = (Long) result[0];
+        long sum = sumRes1ult.longValue();
+
+        //count
+        Long countResiult = (Long) result[1];
+        long count = countResiult.longValue();
+
+        return  (sum/count);
     }
 }

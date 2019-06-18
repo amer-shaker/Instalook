@@ -88,4 +88,12 @@ public class SalonRestController {
         List<Salon> salonsList = salonService.getAllSalons();
         return salonsList;
     }
+
+    @RequestMapping(value = "/getSalonRate",
+            method = RequestMethod.GET, 
+            produces = "application/json")
+    public long getSalonRate(@RequestParam("salonId") Integer salonId) {
+        return salonService.getSalonRate(salonId);
+    }
+    
 }
