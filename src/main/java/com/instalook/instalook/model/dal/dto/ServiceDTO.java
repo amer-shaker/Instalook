@@ -12,6 +12,14 @@ public class ServiceDTO implements Serializable {
     private Integer salonId;
     private Service service;
 
+    public Integer getSalonId() {
+        return salonId;
+    }
+
+    public void setSalonId(Integer salonId) {
+        this.salonId = salonId;
+    }
+
     public Service getService() {
         return service;
     }
@@ -20,11 +28,4 @@ public class ServiceDTO implements Serializable {
         this.service = service;
     }
 
-    public Integer getSalonId() {
-        return salonId;
-    }
-
-    public void setSalonId(Integer salonId) {
-        this.salonId = salonId;
-    }
 }

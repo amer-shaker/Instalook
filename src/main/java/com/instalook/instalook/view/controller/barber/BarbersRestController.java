@@ -29,7 +29,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/all")
-    public List<Barber> getAllBarbers(@RequestParam("id") Integer salonId) {
+    public List<Barber> getAllBarbers(@RequestParam("salonId") Integer salonId) {
         return barbersService.getAllBarbers(salonId);
     }
 
@@ -40,7 +40,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/barber", method = RequestMethod.GET, produces = "application/json")
-    public Barber getBarberById(@RequestParam("id") Integer id) {
+    public Barber getBarberById(@RequestParam("salonId") Integer id) {
         return barbersService.getBarberById(id);
     }
 
@@ -63,7 +63,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/rate", method = RequestMethod.POST)
-    public void rateBarber(@RequestParam("id") Integer barberId, @RequestParam("rate") Integer rate) {
+    public void rateBarber(@RequestParam("salonId") Integer barberId, @RequestParam("rate") Integer rate) {
         barbersService.rateBarber(barberId, rate);
     }
 
@@ -86,7 +86,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/available", method = RequestMethod.POST)
-    public void updateBarberAvailability(@RequestParam("id") Integer barberId, @RequestParam("isAvailable") Integer availability) {
+    public void updateBarberAvailability(@RequestParam("salonId") Integer barberId, @RequestParam("isAvailable") Integer availability) {
         barbersService.updateBarberAvailability(barberId, availability);
     }
 
@@ -97,7 +97,7 @@ public class BarbersRestController {
      *
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int deleteBarber(@RequestParam("id") Integer barberId) {
+    public int deleteBarber(@RequestParam("salonId") Integer barberId) {
         return barbersService.deleteBarber(barberId);
     }
 }
