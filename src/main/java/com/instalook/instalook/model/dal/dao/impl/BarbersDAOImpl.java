@@ -7,6 +7,7 @@ import com.instalook.instalook.model.dal.entity.Salon;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,10 +22,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public class BarbersDAOImpl implements BarbersDAO {
-
+    
     @Autowired(required = true)
     private SessionFactory sessionFactory;
-
+    
     @Override
     public List<Barber> getAllBarbers(Integer salonId) {
         Salon currentSalon = (Salon) sessionFactory.openSession().load(Salon.class, salonId);
@@ -32,29 +33,30 @@ public class BarbersDAOImpl implements BarbersDAO {
         criteria.add(Restrictions.eq("salon", currentSalon));
         return criteria.list();
     }
-
+    
     @Override
     public Barber getBarberById(Integer id) {
         return (Barber) sessionFactory.openSession().get(Barber.class, id);
     }
-
+    
     @Override
     public int addBarber(BarberDTO newBarber) {
         Session session = sessionFactory.openSession();
-        int id = 0;
+        int salonId = 0;
         try {
             session.beginTransaction();
             Salon salon = (Salon) session.load(Salon.class, newBarber.getSalonId());
+            newBarber.getBarber().setSalon(salon);
             salon.getBarbers().add(newBarber.getBarber());
-            id = (Integer) session.save(salon);
+            salonId = (Integer) session.save(salon);
             session.getTransaction().commit();
             session.close();
-        } catch (Exception ex) {
-            System.err.println("hiiiiiiiiiiiiiiiiiiiiiiii"+ex.getMessage());
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
         }
-        return id;
+        return salonId;
     }
-
+    
     @Override
     public void updateBarberAvailability(Integer barberId, Integer availability) {
         Session session = sessionFactory.openSession();
@@ -65,7 +67,7 @@ public class BarbersDAOImpl implements BarbersDAO {
         transaction.commit();
         session.close();
     }
-
+    
     @Override
     public void updateBarberData(Barber barber) {
         Session session = sessionFactory.openSession();
@@ -79,13 +81,13 @@ public class BarbersDAOImpl implements BarbersDAO {
         updatedBarber.setIsAvailable(barber.getIsAvailable());
         updatedBarber.setRole(barber.getRole());
         updatedBarber.setSalon(barber.getSalon());
-
+        
         session.evict(updatedBarber);
         session.update(barber);
         transaction.commit();
         session.close();
     }
-
+    
     @Override
     public void rateBarber(Integer barberId, Integer rate) {
         Session session = sessionFactory.openSession();
@@ -96,7 +98,7 @@ public class BarbersDAOImpl implements BarbersDAO {
         transaction.commit();
         session.close();
     }
-
+    
     @Override
     public int deleteBarber(Integer barberId) {
         Session session = sessionFactory.openSession();
