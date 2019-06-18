@@ -118,16 +118,18 @@ public class SalonDAOImpl implements SalonDAO {
         String hql = "select sum(rate), count(*) from Barber where salon.salonId= :id";
         Query query = session.createQuery(hql).setParameter("id", salonId);
         List listResult = query.list();
+        Object result[] = (Object[]) listResult.get(0);
 
         // sum
-        Object result[] = (Object[]) listResult.get(0);
         Long sumRes1ult = (Long) result[0];
+        System.out.println("sum: " + sumRes1ult);
         long sum = sumRes1ult.longValue();
 
         //count
         Long countResiult = (Long) result[1];
+        System.out.println("count: " + countResiult);
         long count = countResiult.longValue();
 
-        return  (sum/count);
+        return (sum / count);
     }
 }

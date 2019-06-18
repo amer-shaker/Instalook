@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.instalook.instalook.model.dal.dao.BarberDAO;
 import org.hibernate.HibernateException;
-import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -43,28 +42,21 @@ public class BarberDAOImpl implements BarberDAO {
     @Override
     public int addBarber(BarberDTO barberDTO) {
         Session session = null;
-        int id = 0;
-
+        int salonId = 0;
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
+
             Salon salon = (Salon) session.load(Salon.class, barberDTO.getSalonId());
+            barberDTO.getBarber().setSalon(salon);
             salon.getBarbers().add(barberDTO.getBarber());
-            id = (Integer) session.save(salon);
-            session.flush();
+            salonId = (Integer) session.save(salon);
             session.getTransaction().commit();
-        } catch (ConstraintViolationException ex) {
-            System.err.println(ex.getConstraintName());
+            session.close();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-//            if (session != null) {
-//                session.clear();
-//                session.close();
-//            }
         }
-
-        return id;
+        return salonId;
     }
 
     @Override
