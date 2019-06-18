@@ -3,7 +3,6 @@ package com.instalook.instalook.view.controller.salon;
 import com.instalook.instalook.model.dal.dto.ServiceDTO;
 import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
-import com.instalook.instalook.model.dal.service.SalonServicesService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,21 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.instalook.instalook.model.dal.service.SalonServiceService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author Mohamed Ramadan
+ * @author Amer Shaker
  */
 @RestController
 @RequestMapping("/service")
 public class SalonServicesRestController {
 
     @Autowired
-    private SalonServicesService salonServicesService;
+    private SalonServiceService salonServicesService;
 
-    @RequestMapping(value = "/getservices/{salonId}")
-    public List<Service> getSalonServices(@PathVariable("salonId") int id) {
-        return salonServicesService.getAllServicesOfSalon(id);
+    @RequestMapping(value = "/getAllServices")
+    public List<Service> getSalonServices(@RequestParam("salonId") Integer salonId) {
+        return salonServicesService.getAllServices(salonId);
     }
 
     @RequestMapping("/getsalonsprovide/{servicename}")
