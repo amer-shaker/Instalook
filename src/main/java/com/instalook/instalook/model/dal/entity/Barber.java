@@ -116,7 +116,7 @@ public class Barber implements java.io.Serializable, Cloneable {
         this.rate = rate;
     }
 
-    @Column(name = "barber_picture", nullable = false)
+    @Column(name = "barber_picture")
     public byte[] getBarberPicture() {
         return this.barberPicture;
     }

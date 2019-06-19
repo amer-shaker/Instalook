@@ -2,6 +2,7 @@ package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.SalonDAO;
 import com.instalook.instalook.model.dal.entity.Salon;
+import com.instalook.instalook.model.dal.entity.User;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
@@ -58,7 +59,6 @@ public class SalonDAOImpl implements SalonDAO {
             session = sessionFactory.openSession();
             session.beginTransaction();
             id = (Integer) session.save(salon);
-            System.out.println(id);
             session.getTransaction().commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
