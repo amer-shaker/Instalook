@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  *
- * @author Mohamed Ramadan
  * @author Amer Shaker
  */
 public interface ServiceDAO {
@@ -18,7 +17,7 @@ public interface ServiceDAO {
 
     public abstract int insertServiceToSalon(ServiceDTO salonService);
 
-    public abstract int updateSalonService(Service salonService);
+    public abstract void updateService(Service service);
 
-    public abstract int deletServiceFromSalon(int serviceId);
+    public abstract int deleteServiceById(int serviceId);
 }

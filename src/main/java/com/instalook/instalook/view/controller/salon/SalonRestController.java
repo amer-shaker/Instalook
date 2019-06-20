@@ -18,8 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  *
- * @author Ahmed moatasem
  * @author Amer Shaker
+ * @author Ahmed moatasem
  */
 @RestController
 @RequestMapping("/salon")
@@ -90,10 +90,14 @@ public class SalonRestController {
     }
 
     @RequestMapping(value = "/getSalonRate",
-            method = RequestMethod.GET, 
+            method = RequestMethod.GET,
             produces = "application/json")
-    public long getSalonRate(@RequestParam("salonId") Integer salonId) {
-        return salonService.getSalonRate(salonId);
+    public long getSalonRateById(@RequestParam("salonId") Integer salonId) {
+        return salonService.getSalonRateById(salonId);
     }
-    
+
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public int deleteSalonById(@RequestParam("salonId") Integer salonId) {
+        return salonService.deleteSalonById(salonId);
+    }
 }

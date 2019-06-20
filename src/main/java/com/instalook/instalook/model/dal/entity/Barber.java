@@ -134,7 +134,7 @@ public class Barber implements java.io.Serializable, Cloneable {
         this.isAvailable = isAvailable;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "barbers")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "barbers")
     public Set<Booking> getBookings() {
         return this.bookings;
     }

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Ahmed moatasem
  * @author Amer Shaker
+ * @author Ahmed moatasem
  */
 @Service
 @Transactional
@@ -41,7 +41,12 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    public long getSalonRate(int SalonId) {
-        return salonDAO.getSalonRate(SalonId);
+    public int getSalonRateById(int salonId) {
+        return salonDAO.getSalonRateById(salonId);
+    }
+
+    @Override
+    public int deleteSalonById(int salonId) {
+        return salonDAO.deleteSalonById(salonId);
     }
 }

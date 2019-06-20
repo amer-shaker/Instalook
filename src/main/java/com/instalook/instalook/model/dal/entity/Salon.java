@@ -35,6 +35,7 @@ public class Salon implements java.io.Serializable {
     private String salonPassword;
     private String salonLocation;
     private String salonType;
+    private Double salonRate;
     private Set<Barber> barbers = new HashSet<>(0);
     private Set<Image> images = new HashSet<>(0);
     private Set<Post> posts = new HashSet<>(0);
@@ -45,22 +46,24 @@ public class Salon implements java.io.Serializable {
     public Salon() {
     }
 
-    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType, Double salonRate) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
         this.salonPassword = salonPassword;
         this.salonLocation = salonLocation;
         this.salonType = salonType;
+        this.salonRate = salonRate;
     }
 
-    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
+    public Salon(Integer salonId, String salonName, String salonEmail, String salonPassword, String salonLocation, String salonType, Double salonRate, Set<Barber> barbers, Set<Image> images, Set<Post> posts, Set<Service> services, Set<Point> points, Set<User> users) {
         this.salonId = salonId;
         this.salonName = salonName;
         this.salonEmail = salonEmail;
         this.salonPassword = salonPassword;
         this.salonLocation = salonLocation;
         this.salonType = salonType;
+        this.salonRate = salonRate;
         this.barbers = barbers;
         this.images = images;
         this.posts = posts;
@@ -123,6 +126,15 @@ public class Salon implements java.io.Serializable {
 
     public void setSalonType(String salonType) {
         this.salonType = salonType;
+    }
+
+    @Column(name = "salon_rate")
+    public Double getSalonRate() {
+        return salonRate;
+    }
+
+    public void setSalonRate(Double salonRate) {
+        this.salonRate = salonRate;
     }
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salon")

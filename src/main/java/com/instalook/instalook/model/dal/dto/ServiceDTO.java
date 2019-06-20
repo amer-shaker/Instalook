@@ -27,5 +27,4 @@ public class ServiceDTO implements Serializable {
     public void setService(Service service) {
         this.service = service;
     }
-
 }

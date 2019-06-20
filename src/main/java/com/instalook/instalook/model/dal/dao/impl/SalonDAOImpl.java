@@ -2,7 +2,6 @@ package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.SalonDAO;
 import com.instalook.instalook.model.dal.entity.Salon;
-import com.instalook.instalook.model.dal.entity.User;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
@@ -10,6 +9,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Ahmed moatasem
  * @author Amer Shaker
+ * @author Ahmed moatasem
  */
 @Repository
 @Transactional
@@ -41,10 +41,9 @@ public class SalonDAOImpl implements SalonDAO {
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-            /*if (session != null) {
-                session.clear();
-                session.close();
-            }*/
+            if (session != null) {
+                //session.close();
+            }
         }
 
         return salon;
@@ -96,23 +95,15 @@ public class SalonDAOImpl implements SalonDAO {
 
     @Override
     public List<Salon> getAllSalons() {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         List<Salon> salons = session.createCriteria(Salon.class).list();
-
-        for (Salon s : salons) {
-            System.out.println(s.toString());
-        }
-
         session.getTransaction().commit();
         return salons;
     }
 
     @Override
-    public long getSalonRate(int salonId) {
-
+    public int getSalonRateById(int salonId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         String hql = "select sum(rate), count(*) from Barber where salon.salonId= :id";
@@ -121,15 +112,24 @@ public class SalonDAOImpl implements SalonDAO {
         Object result[] = (Object[]) listResult.get(0);
 
         // sum
-        Long sumRes1ult = (Long) result[0];
-        System.out.println("sum: " + sumRes1ult);
-        long sum = sumRes1ult.longValue();
+        Integer sum = (Integer) result[0];
+        System.out.println("sum: " + sum);
 
-        //count
-        Long countResiult = (Long) result[1];
-        System.out.println("count: " + countResiult);
-        long count = countResiult.longValue();
+        // count
+        Integer count = (Integer) result[1];
+        System.out.println("count: " + count);
 
         return (sum / count);
+    }
+
+    @Override
+    public int deleteSalonById(int salonId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        String query = "delete Salon where salonId = :id";
+        int result = session.createQuery(query).setParameter("id", salonId).executeUpdate();
+        transaction.commit();
+        session.close();
+        return result;
     }
 }

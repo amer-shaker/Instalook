@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -129,6 +130,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.profilePicture = profilePicture;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public Set<Booking> getBookings() {
         return this.bookings;
@@ -138,6 +140,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.bookings = bookings;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_save_post", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
@@ -152,6 +155,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.posts = posts;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_follow_salon", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
@@ -166,6 +170,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.salons = salons;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_like_post", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
@@ -180,6 +185,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.postses_1 = postses_1;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public Set<Point> getPoints() {
         return this.points;

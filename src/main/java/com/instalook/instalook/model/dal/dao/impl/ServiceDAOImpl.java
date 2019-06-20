@@ -16,6 +16,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.instalook.instalook.model.dal.dao.ServiceDAO;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 
 /**
@@ -29,7 +30,6 @@ public class ServiceDAOImpl implements ServiceDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
-    private Session session;
 
     @Override
     public List<Service> getAllServices(Integer salonId) {
@@ -50,10 +50,9 @@ public class ServiceDAOImpl implements ServiceDAO {
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-            /*if (session != null) {
-                session.clear();
+            if (session != null) {
                 session.close();
-            }*/
+            }
         }
 
         return services;
@@ -61,23 +60,28 @@ public class ServiceDAOImpl implements ServiceDAO {
 
     @Override
     public List<Salon> getAllSalonProvideService(String serviceName) {
-        if (session == null) {
+        Session session = null;
+        List<Salon> salons = null;
+
+        try {
             session = sessionFactory.openSession();
+
+            Query query = session.createQuery("select distinct s.salonId from Salon s , Service ss "
+                    + "where lower(ss.serviceName) like lower('%" + serviceName + "%') "
+                    + "or lower(ss.serviceType) like lower('%" + serviceName + "%')");
+
+            salons = new ArrayList<>();
+            for (int s : (List<Integer>) query.list()) {
+                Salon salon = (Salon) session.load(Salon.class, s);
+                salons.add(salon);
+            }
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-
-        Query query = session.createQuery("select distinct s.salonId from Salon s , Service ss "
-                + "where lower(ss.serviceName) like lower('%" + serviceName + "%') "
-                + "or lower(ss.serviceType) like lower('%" + serviceName + "%')");
-
-        //Criteria crit = session.createCriteria(Service.class).add(Restrictions.like("serviceName", serviceName));
-        List<Salon> salons = new ArrayList<>();
-        for (int s : (List<Integer>) query.list()) {
-            // System.out.println("salons by service : " + s.getSalonName());
-            Salon salon = (Salon) session.load(Salon.class, s);
-            salons.add(salon);
-
-        }
-        // List<Salon> salons = query.list();
 
         return salons;
     }
@@ -85,83 +89,83 @@ public class ServiceDAOImpl implements ServiceDAO {
     @Override
     public int insertServiceToSalon(ServiceDTO serviceDTO) {
         Session session = null;
-        int id = 0;
+        int serviceId = 0;
 
         try {
             session = sessionFactory.openSession();
-            session.beginTransaction();
+
+            Transaction transaction = session.beginTransaction();
+
             Salon salon = (Salon) session.load(Salon.class, serviceDTO.getSalonId());
             salon.getServices().add(serviceDTO.getService());
-            id = (Integer) session.save(salon);
+            serviceId = (Integer) session.save(salon);
+
             session.flush();
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-//            if (session != null) {
-//                session.clear();
-//                session.close();
-//            }
+            if (session != null) {
+                session.close();
+            }
         }
 
-        return id;
+        return serviceId;
     }
 
     @Override
-    public int updateSalonService(Service salonService) {
-        if (session == null) {
+    public void updateService(Service service) {
+        Session session = null;
+
+        try {
             session = sessionFactory.openSession();
+
+            Transaction transaction = session.beginTransaction();
+
+            Service updatedService = (Service) session.load(Service.class, service.getServiceId());
+            updatedService.setServiceName(service.getServiceName());
+            updatedService.setServiceType(service.getServiceType());
+            updatedService.setServicePrice(service.getServicePrice());
+            updatedService.setSalons(service.getSalons());
+
+            session.evict(updatedService);
+            session.update(service);
+            transaction.commit();
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-        Service service = (Service) session.load(Service.class, salonService.getServiceId());
-        // Salon salon = (Salon) getServiceDaoSession().get(Salon.class, salonId);
-        service.setServiceName(salonService.getServiceName());
-        service.setServicePrice(salonService.getServicePrice());
-        service.setServiceType(salonService.getServiceType());
-        session.beginTransaction();
-        //  salon.getServices().add(salonService);
-        //  salonService.getSalons().add(salon);
-        session.update(service);
-
-        if (!session.getTransaction().wasCommitted()) {
-
-            session.getTransaction().commit();
-            //getServiceDaoSession().close();
-
-        }
-        return 1;
-
     }
 
     @Override
-    public int deletServiceFromSalon(int serviceId) {
+    public int deleteServiceById(int serviceId) {
+        Session session = null;
+        int result = 0;
 
-        if (session == null) {
+        try {
             session = sessionFactory.openSession();
+
+            Transaction transaction = session.beginTransaction();
+            String query = "delete Service where serviceId = :id";
+            result = session.createQuery(query).setParameter("id", serviceId).executeUpdate();
+            transaction.commit();
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-        Service service = (Service) session.load(Service.class, serviceId);
-        session.beginTransaction();
-        // session.delete(service);
 
-        session.createQuery("delete Service where serviceId = :id ").
-                setParameter("id", serviceId).executeUpdate();
-        session.getTransaction().commit();
-
-        return 1;
-
+        return result;
     }
-
-    Session getServiceDaoSession() {
-        if (session == null) {
-            return sessionFactory.openSession();
-        } else if (!session.isOpen()) {
-
-            return session;
-
-        } else {
-            return session;
-        }
-    }
-
 }

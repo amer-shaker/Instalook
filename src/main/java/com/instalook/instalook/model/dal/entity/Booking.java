@@ -77,5 +77,4 @@ public class Booking implements java.io.Serializable, Cloneable {
     public void setBookingDateTime(Date bookingDateTime) {
         this.bookingDateTime = bookingDateTime;
     }
-
 }

@@ -16,9 +16,9 @@ public interface SalonServiceService {
 
     public abstract int insertServiceToSalon(ServiceDTO salonService);
 
-    public abstract int updateSalonService(Service salonService);
+    public abstract void updateService(Service service);
 
     public abstract List<Salon> getAllSalonProvideService(String serviceName);
 
-    public abstract int deletServiceFromSalon(int serviceId);
+    public abstract int deleteServiceById(int serviceId);
 }

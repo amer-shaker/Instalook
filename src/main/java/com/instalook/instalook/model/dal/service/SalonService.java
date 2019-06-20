@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  *
- * @author Ahmed moatasem
  * @author Amer Shaker
+ * @author Ahmed moatasem
  */
 public interface SalonService {
 
@@ -18,6 +18,7 @@ public interface SalonService {
 
     public abstract List<Salon> getAllSalons();
 
-    public abstract long getSalonRate(int SalonId);
+    public abstract int getSalonRateById(int salonId);
 
+    public abstract int deleteSalonById(int salonId);
 }

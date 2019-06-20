@@ -97,7 +97,7 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int deleteBarber(@RequestParam("salonId") Integer barberId) {
+    public int deleteBarber(@RequestParam("barberId") Integer barberId) {
         return barberService.deleteBarber(barberId);
     }
 }

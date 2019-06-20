@@ -78,13 +78,13 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public Integer insertNewBooking(BookingDTO bookingDTO) {
         Booking booking = new Booking();
-       // booking.setBookingId(6);
+        // booking.setBookingId(6);
         session = sessionFactory.openSession();
         session.beginTransaction();
         User user = (User) session.load(User.class, bookingDTO.getUserId());
         Barber barber = (Barber) session.load(Barber.class, bookingDTO.getBarberId());
-        System.out.println("barber "+ barber.getFirstName()+"  "+ user.getFirstName());
-        
+        System.out.println("barber " + barber.getFirstName() + "  " + user.getFirstName());
+
         booking.setUser(user);
         booking.setBarbers(barber);
         booking.setBookingDateTime(bookingDTO.getDate());

@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +27,25 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public int register(User user) {
         Session session = null;
-        int id = 0;
+        int userId = 0;
 
         try {
             session = sessionFactory.openSession();
-            session.beginTransaction();
-            id = (Integer) session.save(user);
-            session.getTransaction().commit();
+
+            Transaction transaction = session.beginTransaction();
+            userId = (Integer) session.save(user);
+            transaction.commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-//            if (session != null) {
-//                session.clear();
-//                session.close();
-//            }
+            if (session != null) {
+                session.close();
+            }
         }
 
-        return id;
+        return userId;
     }
 
     @Override
@@ -61,10 +62,9 @@ public class UserDAOImpl implements UserDAO {
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
         } finally {
-            /*if (session != null) {
-                session.clear();
+            if (session != null) {
                 session.close();
-            }*/
+            }
         }
 
         return user;

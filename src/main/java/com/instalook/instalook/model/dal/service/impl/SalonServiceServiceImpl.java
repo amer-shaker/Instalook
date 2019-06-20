@@ -32,8 +32,8 @@ public class SalonServiceServiceImpl implements SalonServiceService {
     }
 
     @Override
-    public int updateSalonService(Service salonService) {
-        return serviceDAO.updateSalonService(salonService);
+    public void updateService(Service service) {
+        serviceDAO.updateService(service);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SalonServiceServiceImpl implements SalonServiceService {
     }
 
     @Override
-    public int deletServiceFromSalon(int serviceId) {
-        return serviceDAO.deletServiceFromSalon(serviceId);
+    public int deleteServiceById(int serviceId) {
+        return serviceDAO.deleteServiceById(serviceId);
     }
 }

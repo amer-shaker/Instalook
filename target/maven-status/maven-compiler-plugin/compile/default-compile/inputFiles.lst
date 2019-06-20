@@ -12,7 +12,6 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Barber.java
 D:\Instalook\src\main\java\com\instalook\instalook\view\controller\authentication\UserRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dto\BookingDTO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\SalonServiceServiceImpl.java
-D:\Instalook\src\main\java\com\instalook\instalook\view\controller\salon\SalonServicesRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\UserServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BookingServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\UserDAOImpl.java
@@ -20,6 +19,7 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BarberDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BarberServiceImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\SalonDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BookingDAO.java
+D:\Instalook\src\main\java\com\instalook\instalook\view\controller\salon\SalonServiceRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Point.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BarberService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\UserDAO.java
