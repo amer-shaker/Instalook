@@ -63,8 +63,8 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/rate", method = RequestMethod.POST)
-    public void rateBarber(@RequestParam("salonId") int barberId, @RequestParam("rate") int rate) {
-        barberService.rateBarber(barberId, rate);
+    public void rateBarber(@RequestParam("barberId") int barberId, @RequestParam("rate") int rate, @RequestParam("salonId") int salonId) {
+        barberService.rateBarber(barberId, rate, salonId);
     }
 
     /**

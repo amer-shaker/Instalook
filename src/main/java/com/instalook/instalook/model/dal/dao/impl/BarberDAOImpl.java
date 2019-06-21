@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.instalook.instalook.model.dal.dao.BarberDAO;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.exception.ConstraintViolationException;
 
 /**
@@ -24,6 +25,7 @@ public class BarberDAOImpl implements BarberDAO {
     @Autowired(required = true)
     private SessionFactory sessionFactory;
     private Session session;
+    private SalonDAOImpl salonDAOImpl;
 
     @Override
     public int addBarber(BarberDTO barberDTO) {
@@ -122,15 +124,46 @@ public class BarberDAOImpl implements BarberDAO {
     }
 
     @Override
-    public void rateBarber(int barberId, int rate) {
+    public void rateBarber(int barberId, int rate, int salonId) {
         try {
             session = sessionFactory.getCurrentSession();
+            salonDAOImpl = new SalonDAOImpl();
             Barber barber = (Barber) session.load(Barber.class, barberId);
             barber.setRate(rate);
             session.update(barber);
+            updateSalonRate(salonId);
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
             session.clear();
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+    }
+
+    public void updateSalonRate(int salonId) {
+        double salonRate = 0;
+        try {
+            session = sessionFactory.getCurrentSession();
+            String hql = "select sum(rate), count(*) from Barber where salon.salonId= :id";
+            Query query = session.createQuery(hql).setParameter("id", salonId);
+            List listResult = query.list();
+            Object result[] = (Object[]) listResult.get(0);
+
+            // sum
+            long sum = (long) result[0];
+            System.out.println("sum: " + sum);
+            // count
+            long count = (long) result[1];
+            System.out.println("count: " + count);
+            salonRate = (double)(sum / count);
+            
+            // update salon rate
+            Salon updatedSalon = (Salon) session.load(Salon.class, salonId);
+            System.out.println("salon name"+ updatedSalon.getSalonName());
+            updatedSalon.setSalonRate(salonRate);
+            session.update(updatedSalon);       
+            
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
             session.clear();
