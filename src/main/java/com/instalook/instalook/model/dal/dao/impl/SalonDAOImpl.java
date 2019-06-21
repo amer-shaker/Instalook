@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,7 @@ public class SalonDAOImpl implements SalonDAO {
 
         try {
             session = sessionFactory.getCurrentSession();
-            salons = session.createCriteria(Salon.class).list();
+            salons = session.createCriteria(Salon.class).addOrder(Order.asc("salonRate")).list();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
             session.clear();
