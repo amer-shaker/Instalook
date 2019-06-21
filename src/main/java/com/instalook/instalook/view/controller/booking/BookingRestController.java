@@ -25,19 +25,38 @@ public class BookingRestController {
     @Autowired
     private BookingService bookingService;
 
+    @RequestMapping(value = "/user/book", method = RequestMethod.POST,
+            produces = "application/json")
+    public Object book(@RequestBody BookingDTO bookingDTO) {
+        int id = bookingService.book(bookingDTO);
+        if (id != 0) {
+            BaseResponse responseBody = new BaseResponse();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            responseBody.setStatusMessage("Booking Done Successfully.");
+            return responseBody;
+        } else {
+            BaseResponse responseBody = new BaseResponse();
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Booking Error");
+            return response;
+        }
+    }
+
     @RequestMapping(value = "/salon/getBookings", method = RequestMethod.GET,
             produces = "application/json")
     public List<Object[]> getBarberBookings(@RequestParam int barberId) {
-        return bookingService.getBarberBookings(barberId);
+        return bookingService.getAllBarberBookings(barberId);
     }
 
     @RequestMapping(value = "/user/getBookings", method = RequestMethod.GET,
             produces = "application/json")
-    public List<Object[]> getUserBookings(@RequestParam int userId) {
-        return bookingService.getUserBookings(userId);
+    public List<Object[]> getAllUserBookings(@RequestParam int userId) {
+        return bookingService.getAllUserBookings(userId);
     }
 
-    @RequestMapping(value = "/cancelBooking", method = RequestMethod.GET,
+    @RequestMapping(value = "/cancelBooking", method = RequestMethod.DELETE,
             produces = "application/json")
     public Object cancelBooking(@RequestParam int bookingId) {
         boolean isBookingDeleted = bookingService.cancelBooking(bookingId);
@@ -53,25 +72,4 @@ public class BookingRestController {
             return responseBody;
         }
     }
-
-    @RequestMapping(value = "/user/book", method = RequestMethod.POST,
-            produces = "application/json")
-    public Object getUserBookings(@RequestBody BookingDTO bookingDTO) {
-        int id = bookingService.insertNewBooking(bookingDTO);
-        if (id != 0) {
-            BaseResponse responseBody = new BaseResponse();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            responseBody.setStatusMessage("Booking Done Successfully.");
-            return responseBody;
-        } else {
-            BaseResponse responseBody = new BaseResponse();
-            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
-            responseBody.setStatusCode(response.getStatusCode());
-            responseBody.setStatusMessage("Booking Error");
-            return response;
-        }
-
-    }
-
 }

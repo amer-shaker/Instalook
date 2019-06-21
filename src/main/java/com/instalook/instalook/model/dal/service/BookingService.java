@@ -5,20 +5,16 @@ import java.util.List;
 
 /**
  *
- * @author abdullah
+ * @author Anas
+ * @author Amer Shaker
  */
 public interface BookingService {
 
-    /**
-     *
-     * @param barber
-     * @return
-     */
-    public abstract List<Object[]> getBarberBookings(int barberId);
+    public abstract int book(BookingDTO bookingDTO);
 
-    public abstract List<Object[]> getUserBookings(int userId);
+    public abstract List<Object[]> getAllBarberBookings(int barberId);
+
+    public abstract List<Object[]> getAllUserBookings(int userId);
 
     public abstract boolean cancelBooking(int bookingId);
-
-    public Integer insertNewBooking(BookingDTO bookingDTO);
 }

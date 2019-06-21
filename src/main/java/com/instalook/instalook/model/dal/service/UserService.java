@@ -17,5 +17,7 @@ public interface UserService {
 
     public abstract List<User> getALlUsers();
 
+    public abstract boolean updateUserData(User user);
+
     public abstract boolean deleteUserById(int userId);
 }

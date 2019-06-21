@@ -113,6 +113,29 @@ public class UserRestController {
         }
     }
 
+    @RequestMapping(value = "/update",
+            method = RequestMethod.PATCH,
+            produces = "application/json")
+    public Object updateUserData(@RequestBody User user) {
+        boolean isSuccess = userService.updateUserData(user);
+        BaseResponse responseBody = new BaseResponse();
+
+        if (isSuccess) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Updated successfully");
+            return response;
+        } else {
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("This user doesn't exist");
+            return response;
+        }
+    }
+
     @RequestMapping(value = "/delete",
             method = RequestMethod.DELETE,
             produces = "application/json")

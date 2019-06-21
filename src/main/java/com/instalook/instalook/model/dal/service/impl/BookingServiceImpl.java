@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author abdullah
+ * @author Anas
+ * @author Amer Shaker
  */
 @Service
 @Transactional
@@ -20,24 +21,27 @@ public class BookingServiceImpl implements BookingService {
     private BookingDAO bookingDAO;
 
     @Override
-    public List<Object[]> getBarberBookings(int barberId) {
-        return bookingDAO.getBarberBookings(barberId);
+    @Transactional
+    public int book(BookingDTO bookingDTO) {
+        return bookingDAO.book(bookingDTO);
     }
 
     @Override
-    public List<Object[]> getUserBookings(int userId) {
-        return bookingDAO.getUserBookings(userId);
+    @Transactional
+    public List<Object[]> getAllBarberBookings(int barberId) {
+        return bookingDAO.getAllBarberBookings(barberId);
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getAllUserBookings(int userId) {
+        return bookingDAO.getAllUserBookings(userId);
 
     }
 
     @Override
+    @Transactional
     public boolean cancelBooking(int bookingId) {
         return bookingDAO.cancelBooking(bookingId);
     }
-
-    @Override
-    public Integer insertNewBooking(BookingDTO bookingDTO) {
-        return bookingDAO.insertNewBooking(bookingDTO);
-    }
-
 }

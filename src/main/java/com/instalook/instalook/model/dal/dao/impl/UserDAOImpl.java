@@ -91,6 +91,32 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean updateUserData(User user) {
+        boolean isSuccess = false;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+
+            User updatedUser = (User) session.load(User.class, user.getUserId());
+            updatedUser.setFirstName(user.getFirstName());
+            updatedUser.setLastName(user.getLastName());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setLocation(user.getLocation());
+            updatedUser.setProfilePicture(user.getProfilePicture());
+
+            session.evict(updatedUser);
+            session.update(user);
+            isSuccess = true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return isSuccess;
+    }
+
+    @Override
     public boolean deleteUserById(int userId) {
         boolean isSuccess = false;
 
