@@ -36,11 +36,17 @@ public class Salon implements java.io.Serializable {
     private String salonLocation;
     private String salonType;
     private Double salonRate;
+    @JsonIgnore
     private Set<Barber> barbers = new HashSet<>(0);
+    @JsonIgnore
     private Set<Image> images = new HashSet<>(0);
+    @JsonIgnore
     private Set<Post> posts = new HashSet<>(0);
+    @JsonIgnore
     private Set<Service> services = new HashSet<>(0);
+    @JsonIgnore
     private Set<Point> points = new HashSet<>(0);
+    @JsonIgnore
     private Set<User> users = new HashSet<>(0);
 
     public Salon() {

@@ -47,8 +47,8 @@ public class SalonServiceRestController {
         return salonServiceService.getAllServiceProviders(serviceName);
     }
 
-    @RequestMapping(value = "/getAllServices")
-    public List<Service> getAllServicesById(@RequestParam("salonId") Integer salonId) {
+    @RequestMapping(value = "/all")
+    public List<Service> getAllServicesById(@RequestParam("salonId") int salonId) {
         return salonServiceService.getAllServicesById(salonId);
     }
 
