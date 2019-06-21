@@ -11,7 +11,7 @@ import com.instalook.instalook.model.dal.service.BarberService;
 
 /**
  *
- * @author Aya
+ * @author Aya Wageeh
  */
 @Service
 @Transactional
@@ -21,36 +21,43 @@ public class BarberServiceImpl implements BarberService {
     private BarberDAO barberDAO;
 
     @Override
-    public List<Barber> getAllBarbers(Integer salonId) {
-        return barberDAO.getAllBarbers(salonId);
-    }
-
-    @Override
-    public Barber getBarberById(Integer id) {
-        return barberDAO.getBarberById(id);
-    }
-
-    @Override
+    @Transactional
     public int addBarber(BarberDTO barber) {
         return barberDAO.addBarber(barber);
     }
 
     @Override
+    @Transactional
+    public List<Barber> getAllBarbers(Integer salonId) {
+        return barberDAO.getAllBarbers(salonId);
+    }
+
+    @Override
+    @Transactional
+    public Barber getBarberById(Integer id) {
+        return barberDAO.getBarberById(id);
+    }
+
+    @Override
+    @Transactional
     public void updateBarberData(Barber barber) {
         barberDAO.updateBarberData(barber);
     }
 
     @Override
+    @Transactional
     public void updateBarberAvailability(Integer barberId, Integer availability) {
         barberDAO.updateBarberAvailability(barberId, availability);
     }
 
     @Override
+    @Transactional
     public void rateBarber(Integer barberId, Integer rate) {
         barberDAO.rateBarber(barberId, rate);
     }
 
     @Override
+    @Transactional
     public int deleteBarber(Integer barberId) {
         return barberDAO.deleteBarber(barberId);
     }

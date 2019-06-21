@@ -5,7 +5,6 @@ import com.instalook.instalook.model.dal.entity.Salon;
 import com.instalook.instalook.model.dal.entity.Service;
 import java.util.ArrayList;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -16,51 +15,42 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.instalook.instalook.model.dal.dao.ServiceDAO;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 
 /**
  *
- * @author Mohamed Ramadan
  * @author Amer Shaker
  */
 @Repository
-@Transactional
 public class ServiceDAOImpl implements ServiceDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
+    private Session session;
 
     @Override
-    public List<Service> getAllServices(Integer salonId) {
-        Session session = null;
-        List<Service> services = null;
+    public int addService(ServiceDTO service) {
+        int serviceId = 0;
 
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
 
-            Salon salon = (Salon) session.load(Salon.class, salonId);
-
-            Criteria criteria = session.createCriteria(Service.class)
-                    .createAlias("salons", "s")
-                    .add(Restrictions.eq("s.salonId", salon.getSalonId()))
-                    .addOrder(Order.asc("serviceName"));
-
-            services = criteria.list();
+            Salon salon = (Salon) session.load(Salon.class, service.getSalonId());
+            salon.getServices().add(service.getService());
+            serviceId = (Integer) session.save(salon);
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+            session.clear();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
 
-        return services;
+        return serviceId;
     }
 
     @Override
-    public List<Salon> getAllSalonProvideService(String serviceName) {
-        Session session = null;
+    public List<Salon> getAllServiceProviders(String serviceName) {
         List<Salon> salons = null;
 
         try {
@@ -77,95 +67,67 @@ public class ServiceDAOImpl implements ServiceDAO {
             }
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         return salons;
     }
 
     @Override
-    public int insertServiceToSalon(ServiceDTO serviceDTO) {
-        Session session = null;
-        int serviceId = 0;
+    public List<Service> getAllServicesById(int salonId) {
+        List<Service> services = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
 
-            Transaction transaction = session.beginTransaction();
+            Salon salon = (Salon) session.load(Salon.class, salonId);
+            Criteria criteria = session.createCriteria(Service.class)
+                    .createAlias("salons", "s")
+                    .add(Restrictions.eq("s.salonId", salon.getSalonId()))
+                    .addOrder(Order.asc("serviceName"));
 
-            Salon salon = (Salon) session.load(Salon.class, serviceDTO.getSalonId());
-            salon.getServices().add(serviceDTO.getService());
-            serviceId = (Integer) session.save(salon);
-
-            session.flush();
-            transaction.commit();
-        } catch (ConstraintViolationException ex) {
-            System.err.println(ex.getConstraintName());
+            services = criteria.list();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
 
-        return serviceId;
+        return services;
     }
 
     @Override
     public void updateService(Service service) {
-        Session session = null;
-
         try {
-            session = sessionFactory.openSession();
-
-            Transaction transaction = session.beginTransaction();
+            session = sessionFactory.getCurrentSession();
 
             Service updatedService = (Service) session.load(Service.class, service.getServiceId());
             updatedService.setServiceName(service.getServiceName());
             updatedService.setServiceType(service.getServiceType());
             updatedService.setServicePrice(service.getServicePrice());
             updatedService.setSalons(service.getSalons());
-
-            session.evict(updatedService);
-            session.update(service);
-            transaction.commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
+            session.clear();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
     }
 
     @Override
-    public int deleteServiceById(int serviceId) {
-        Session session = null;
-        int result = 0;
+    public boolean deleteServiceById(int serviceId) {
+        boolean isSuccess = false;
 
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
 
-            Transaction transaction = session.beginTransaction();
-            String query = "delete Service where serviceId = :id";
-            result = session.createQuery(query).setParameter("id", serviceId).executeUpdate();
-            transaction.commit();
-        } catch (ConstraintViolationException ex) {
-            System.err.println(ex.getConstraintName());
+            Object service = session.load(Service.class, serviceId);
+            session.delete(service);
+            isSuccess = true;
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
 
-        return result;
+        return isSuccess;
     }
 }

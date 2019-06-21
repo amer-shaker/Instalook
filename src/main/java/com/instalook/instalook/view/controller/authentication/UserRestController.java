@@ -3,6 +3,7 @@ package com.instalook.instalook.view.controller.authentication;
 import com.instalook.instalook.view.controller.utils.BaseResponse;
 import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.UserService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -70,6 +71,67 @@ public class UserRestController {
             ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
             responseBody.setStatusCode(response.getStatusCode());
             responseBody.setStatusMessage("Incorrect credentials");
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/userId",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    public Object getUserById(@RequestParam("userId") int userId) {
+        User user = userService.getUserById(userId);
+        BaseResponse responseBody = new BaseResponse();
+
+        if (user != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return user;
+        } else {
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Incorrect credentials");
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/all",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    public Object getALlUsers() {
+        List<User> users = userService.getALlUsers();
+        BaseResponse responseBody = new BaseResponse();
+
+        if (users != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return users;
+        } else {
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Incorrect credentials");
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/delete",
+            method = RequestMethod.DELETE,
+            produces = "application/json")
+    public Object deleteUserById(@RequestParam("userId") int userId) {
+        boolean isSuccess = userService.deleteUserById(userId);
+        BaseResponse responseBody = new BaseResponse();
+
+        if (isSuccess) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.OK);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Deleted successfully");
+            return response;
+        } else {
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("This user doesn't exist");
             return response;
         }
     }

@@ -20,11 +20,11 @@ public interface BarberDAO {
     public static final String IS_AVAILABLE_COLUMN = "is_available";
     public static final String SALON_ID_COLUMN = "salon_id";
 
+    public abstract int addBarber(BarberDTO barber);
+    
     public abstract List<Barber> getAllBarbers(Integer salonId);
 
-    public abstract Barber getBarberById(Integer id);
-
-    public abstract int addBarber(BarberDTO barber);
+    public abstract Barber getBarberById(int barberId);
 
     public abstract void updateBarberData(Barber barber);
 

@@ -92,12 +92,12 @@ public class SalonRestController {
     @RequestMapping(value = "/getSalonRate",
             method = RequestMethod.GET,
             produces = "application/json")
-    public long getSalonRateById(@RequestParam("salonId") Integer salonId) {
+    public double getSalonRateById(@RequestParam("salonId") Integer salonId) {
         return salonService.getSalonRateById(salonId);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int deleteSalonById(@RequestParam("salonId") Integer salonId) {
+    public boolean deleteSalonById(@RequestParam("salonId") Integer salonId) {
         return salonService.deleteSalonById(salonId);
     }
 }

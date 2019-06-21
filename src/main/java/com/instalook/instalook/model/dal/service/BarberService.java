@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface BarberService {
 
+    public abstract int addBarber(BarberDTO barber);
+    
     public abstract List<Barber> getAllBarbers(Integer salonId);
 
     public abstract Barber getBarberById(Integer id);
-
-    public abstract int addBarber(BarberDTO barber);
 
     public abstract void updateBarberData(Barber barber);
 

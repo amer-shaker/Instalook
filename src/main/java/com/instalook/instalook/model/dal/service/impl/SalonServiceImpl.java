@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author Amer Shaker
- * @author Ahmed moatasem
  */
 @Service
 @Transactional
@@ -21,32 +20,38 @@ public class SalonServiceImpl implements SalonService {
     private SalonDAO salonDAO;
 
     @Override
-    public Salon login(String email, String password) {
-        return salonDAO.login(email, password);
-    }
-
-    @Override
+    @Transactional
     public int register(Salon salon) {
         return salonDAO.register(salon);
     }
 
     @Override
+    @Transactional
+    public Salon login(String email, String password) {
+        return salonDAO.login(email, password);
+    }
+
+    @Override
+    @Transactional
     public Salon getSalonById(int salonId) {
         return salonDAO.getSalonById(salonId);
     }
 
     @Override
+    @Transactional
+    public double getSalonRateById(int salonId) {
+        return salonDAO.getSalonRateById(salonId);
+    }
+
+    @Override
+    @Transactional
     public List<Salon> getAllSalons() {
         return salonDAO.getAllSalons();
     }
 
     @Override
-    public int getSalonRateById(int salonId) {
-        return salonDAO.getSalonRateById(salonId);
-    }
-
-    @Override
-    public int deleteSalonById(int salonId) {
+    @Transactional
+    public boolean deleteSalonById(int salonId) {
         return salonDAO.deleteSalonById(salonId);
     }
 }

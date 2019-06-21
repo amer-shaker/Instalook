@@ -4,7 +4,6 @@ import com.instalook.instalook.model.dal.dto.BarberDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.entity.Salon;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,50 +13,74 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.instalook.instalook.model.dal.dao.BarberDAO;
 import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
  * @author Aya
  */
 @Repository
-@Transactional
 public class BarberDAOImpl implements BarberDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
-
-    @Override
-    public List<Barber> getAllBarbers(Integer salonId) {
-        Session session = sessionFactory.openSession();
-        Salon currentSalon = (Salon) session.load(Salon.class, salonId);
-        Criteria criteria = session.createCriteria(Barber.class);
-        criteria.add(Restrictions.eq("salon", currentSalon));
-        return criteria.list();
-    }
-
-    @Override
-    public Barber getBarberById(Integer id) {
-        return (Barber) sessionFactory.openSession().get(Barber.class, id);
-    }
+    private Session session;
 
     @Override
     public int addBarber(BarberDTO barberDTO) {
-        Session session = null;
         int salonId = 0;
+
         try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
+            session = sessionFactory.getCurrentSession();
 
             Salon salon = (Salon) session.load(Salon.class, barberDTO.getSalonId());
             barberDTO.getBarber().setSalon(salon);
             salon.getBarbers().add(barberDTO.getBarber());
             salonId = (Integer) session.save(salon);
-            session.getTransaction().commit();
-            session.close();
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+            session.clear();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
+            session.clear();
         }
+
         return salonId;
+    }
+
+    @Override
+    public List<Barber> getAllBarbers(Integer salonId) {
+        List<Barber> barbers = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+
+            Salon salon = (Salon) session.load(Salon.class, salonId);
+            Criteria criteria = session.createCriteria(Barber.class)
+                    .add(Restrictions.eq("salon", salon));
+
+            barbers = criteria.list();
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return barbers;
+    }
+
+    @Override
+    public Barber getBarberById(int barberId) {
+        Barber barber = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            barber = (Barber) session.load(Barber.class, barberId);
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return barber;
     }
 
     @Override

@@ -2,12 +2,11 @@ package com.instalook.instalook.model.dal.dao.impl;
 
 import com.instalook.instalook.model.dal.dao.UserDAO;
 import com.instalook.instalook.model.dal.entity.User;
-import javax.transaction.Transactional;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +17,25 @@ import org.springframework.stereotype.Repository;
  * @author Amer Shaker
  */
 @Repository
-@Transactional
 public class UserDAOImpl implements UserDAO {
 
     @Autowired(required = true)
     private SessionFactory sessionFactory;
+    private Session session;
 
     @Override
     public int register(User user) {
-        Session session = null;
         int userId = 0;
 
         try {
-            session = sessionFactory.openSession();
-
-            Transaction transaction = session.beginTransaction();
+            session = sessionFactory.getCurrentSession();
             userId = (Integer) session.save(user);
-            transaction.commit();
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
+            session.clear();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
 
         return userId;
@@ -50,23 +43,68 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User login(String email, String password) {
-        Session session = null;
         User user = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             Criteria criteria = session.createCriteria(User.class)
                     .add(Restrictions.eq("email", email))
                     .add(Restrictions.eq("password", password));
+
             user = (User) criteria.uniqueResult();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.clear();
         }
 
         return user;
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        User user = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            user = (User) session.load(User.class, userId);
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return user;
+    }
+
+    @Override
+    public List<User> getALlUsers() {
+        List<User> users = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            users = session.createCriteria(User.class).list();
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return users;
+    }
+
+    @Override
+    public boolean deleteUserById(int userId) {
+        boolean isSuccess = false;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+
+            Object user = session.load(User.class, userId);
+            session.delete(user);
+            isSuccess = true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return isSuccess;
     }
 }

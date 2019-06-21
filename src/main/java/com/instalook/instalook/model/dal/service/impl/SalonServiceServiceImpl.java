@@ -11,7 +11,6 @@ import com.instalook.instalook.model.dal.service.SalonServiceService;
 
 /**
  *
- * @author Mohamed Ramadan
  * @author Amer Shaker
  */
 @org.springframework.stereotype.Service
@@ -22,27 +21,32 @@ public class SalonServiceServiceImpl implements SalonServiceService {
     private ServiceDAO serviceDAO;
 
     @Override
-    public List<Service> getAllServices(Integer salonId) {
-        return serviceDAO.getAllServices(salonId);
+    @Transactional
+    public int addService(ServiceDTO service) {
+        return serviceDAO.addService(service);
     }
 
     @Override
-    public int insertServiceToSalon(ServiceDTO salonService) {
-        return serviceDAO.insertServiceToSalon(salonService);
+    @Transactional
+    public List<Salon> getAllServiceProviders(String serviceName) {
+        return serviceDAO.getAllServiceProviders(serviceName);
     }
 
     @Override
+    @Transactional
+    public List<Service> getAllServicesById(int salonId) {
+        return serviceDAO.getAllServicesById(salonId);
+    }
+
+    @Override
+    @Transactional
     public void updateService(Service service) {
         serviceDAO.updateService(service);
     }
 
     @Override
-    public List<Salon> getAllSalonProvideService(String serviceName) {
-        return serviceDAO.getAllSalonProvideService(serviceName);
-    }
-
-    @Override
-    public int deleteServiceById(int serviceId) {
+    @Transactional
+    public boolean deleteServiceById(int serviceId) {
         return serviceDAO.deleteServiceById(serviceId);
     }
 }

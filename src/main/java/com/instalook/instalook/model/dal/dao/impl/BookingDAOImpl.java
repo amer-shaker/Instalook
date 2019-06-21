@@ -5,11 +5,8 @@ import com.instalook.instalook.model.dal.dto.BookingDTO;
 import com.instalook.instalook.model.dal.entity.Barber;
 import com.instalook.instalook.model.dal.entity.Booking;
 import com.instalook.instalook.model.dal.entity.User;
-
 import java.util.List;
-import javax.transaction.Transactional;
 import org.hibernate.Criteria;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +18,6 @@ import org.springframework.stereotype.Repository;
  * @author abdullah
  */
 @Repository
-@Transactional
 public class BookingDAOImpl implements BookingDAO {
 
     Session session;

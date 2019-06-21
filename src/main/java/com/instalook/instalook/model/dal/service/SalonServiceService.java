@@ -7,18 +7,17 @@ import java.util.List;
 
 /**
  *
- * @author Mohamed Ramadan
  * @author Amer Shaker
  */
 public interface SalonServiceService {
 
-    public abstract List<Service> getAllServices(Integer salonId);
+    public abstract int addService(ServiceDTO service);
 
-    public abstract int insertServiceToSalon(ServiceDTO salonService);
+    public abstract List<Salon> getAllServiceProviders(String serviceName);
+
+    public abstract List<Service> getAllServicesById(int salonId);
 
     public abstract void updateService(Service service);
 
-    public abstract List<Salon> getAllSalonProvideService(String serviceName);
-
-    public abstract int deleteServiceById(int serviceId);
+    public abstract boolean deleteServiceById(int serviceId);
 }

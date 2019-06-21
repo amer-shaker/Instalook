@@ -29,19 +29,9 @@ public class SalonServiceRestController {
     @Autowired
     private SalonServiceService salonServiceService;
 
-    @RequestMapping(value = "/getAllServices")
-    public List<Service> getSalonServices(@RequestParam("salonId") Integer salonId) {
-        return salonServiceService.getAllServices(salonId);
-    }
-
-    @RequestMapping("/getsalonsprovide/{servicename}")
-    public List<Salon> getSalonsProvidedService(@PathVariable("servicename") String serviceName) {
-        return salonServiceService.getAllSalonProvideService(serviceName);
-    }
-
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Void> addServiceToSalon(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
-        int id = salonServiceService.insertServiceToSalon(service);
+    public ResponseEntity<Void> addService(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
+        int id = salonServiceService.addService(service);
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(ucBuilder.path("/add/{id}")
@@ -52,8 +42,18 @@ public class SalonServiceRestController {
         }
     }
 
+    @RequestMapping("/getsalonsprovide/{servicename}")
+    public List<Salon> getAllServiceProviders(@PathVariable("servicename") String serviceName) {
+        return salonServiceService.getAllServiceProviders(serviceName);
+    }
+
+    @RequestMapping(value = "/getAllServices")
+    public List<Service> getAllServicesById(@RequestParam("salonId") Integer salonId) {
+        return salonServiceService.getAllServicesById(salonId);
+    }
+
     @RequestMapping(value = "/salon/updateservice", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Void> updateSalonService(@RequestBody Service service, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> updateService(@RequestBody Service service, UriComponentsBuilder ucBuilder) {
         salonServiceService.updateService(service);
         if (true) {
             HttpHeaders headers = new HttpHeaders();
@@ -67,7 +67,7 @@ public class SalonServiceRestController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int deleteServiceById(@RequestParam("serviceId") Integer serviceId) {
+    public boolean deleteServiceById(@RequestParam("serviceId") Integer serviceId) {
         return salonServiceService.deleteServiceById(serviceId);
     }
 }
