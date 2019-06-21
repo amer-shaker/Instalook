@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author abdullah
+ * @author Anas
  */
 public class ServiceDTO implements Serializable {
 

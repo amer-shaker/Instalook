@@ -28,14 +28,14 @@ public class BarberServiceImpl implements BarberService {
 
     @Override
     @Transactional
-    public List<Barber> getAllBarbers(Integer salonId) {
-        return barberDAO.getAllBarbers(salonId);
+    public Barber getBarberById(int barberId) {
+        return barberDAO.getBarberById(barberId);
     }
 
     @Override
     @Transactional
-    public Barber getBarberById(Integer id) {
-        return barberDAO.getBarberById(id);
+    public List<Barber> getAllBarbers(int salonId) {
+        return barberDAO.getAllBarbers(salonId);
     }
 
     @Override
@@ -46,19 +46,19 @@ public class BarberServiceImpl implements BarberService {
 
     @Override
     @Transactional
-    public void updateBarberAvailability(Integer barberId, Integer availability) {
+    public void updateBarberAvailability(int barberId, int availability) {
         barberDAO.updateBarberAvailability(barberId, availability);
     }
 
     @Override
     @Transactional
-    public void rateBarber(Integer barberId, Integer rate) {
+    public void rateBarber(int barberId, int rate) {
         barberDAO.rateBarber(barberId, rate);
     }
 
     @Override
     @Transactional
-    public int deleteBarber(Integer barberId) {
-        return barberDAO.deleteBarber(barberId);
+    public boolean deleteBarberById(int barberId) {
+        return barberDAO.deleteBarberById(barberId);
     }
 }

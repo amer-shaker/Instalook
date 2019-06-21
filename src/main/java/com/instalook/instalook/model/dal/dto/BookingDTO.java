@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  *
- * @author abdullah
+ * @author Anas
  */
 public class BookingDTO implements Serializable {
 

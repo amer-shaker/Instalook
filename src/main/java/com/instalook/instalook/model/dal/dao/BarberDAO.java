@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Aya
+ * @author Aya Wageeh
  */
 public interface BarberDAO {
 
@@ -21,16 +21,16 @@ public interface BarberDAO {
     public static final String SALON_ID_COLUMN = "salon_id";
 
     public abstract int addBarber(BarberDTO barber);
-    
-    public abstract List<Barber> getAllBarbers(Integer salonId);
 
     public abstract Barber getBarberById(int barberId);
 
+    public abstract List<Barber> getAllBarbers(int salonId);
+
     public abstract void updateBarberData(Barber barber);
 
-    public abstract void updateBarberAvailability(Integer barberId, Integer availability);
+    public abstract void updateBarberAvailability(int barberId, int availability);
 
-    public abstract void rateBarber(Integer barberId, Integer rate);
+    public abstract void rateBarber(int barberId, int rate);
 
-    public abstract int deleteBarber(Integer barberId);
+    public abstract boolean deleteBarberById(int barberId);
 }

@@ -13,7 +13,7 @@ import com.instalook.instalook.model.dal.service.BarberService;
 
 /**
  *
- * @author Aya
+ * @author Aya Wageeh
  */
 @RestController
 @RequestMapping("/barber")
@@ -29,19 +29,19 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/all")
-    public List<Barber> getAllBarbers(@RequestParam("salonId") Integer salonId) {
+    public List<Barber> getAllBarbers(@RequestParam("salonId") int salonId) {
         return barberService.getAllBarbers(salonId);
     }
 
     /**
      * Gets barber in the salon by id
      *
-     * @param id is the salon id of type Integer
+     * @param salonId is the salon id of type Integer
      *
      */
     @RequestMapping(value = "/barber", method = RequestMethod.GET, produces = "application/json")
-    public Barber getBarberById(@RequestParam("salonId") Integer id) {
-        return barberService.getBarberById(id);
+    public Barber getBarberById(@RequestParam("salonId") int salonId) {
+        return barberService.getBarberById(salonId);
     }
 
     /**
@@ -63,7 +63,7 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/rate", method = RequestMethod.POST)
-    public void rateBarber(@RequestParam("salonId") Integer barberId, @RequestParam("rate") Integer rate) {
+    public void rateBarber(@RequestParam("salonId") int barberId, @RequestParam("rate") int rate) {
         barberService.rateBarber(barberId, rate);
     }
 
@@ -86,7 +86,7 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/available", method = RequestMethod.POST)
-    public void updateBarberAvailability(@RequestParam("salonId") Integer barberId, @RequestParam("isAvailable") Integer availability) {
+    public void updateBarberAvailability(@RequestParam("salonId") int barberId, @RequestParam("isAvailable") int availability) {
         barberService.updateBarberAvailability(barberId, availability);
     }
 
@@ -97,7 +97,7 @@ public class BarberRestController {
      *
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public int deleteBarber(@RequestParam("barberId") Integer barberId) {
-        return barberService.deleteBarber(barberId);
+    public boolean deleteBarber(@RequestParam("barberId") int barberId) {
+        return barberService.deleteBarberById(barberId);
     }
 }

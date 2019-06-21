@@ -32,6 +32,7 @@ public class Barber implements java.io.Serializable, Cloneable {
     private Integer rate;
     private byte[] barberPicture;
     private int isAvailable;
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>(0);
 
     public Barber() {
