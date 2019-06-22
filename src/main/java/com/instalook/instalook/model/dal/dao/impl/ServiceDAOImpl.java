@@ -120,9 +120,9 @@ public class ServiceDAOImpl implements ServiceDAO {
         try {
             session = sessionFactory.getCurrentSession();
 
-            Object service = session.load(Service.class, serviceId);
-            session.delete(service);
-            isSuccess = true;
+            String query = "delete Service where serviceId = :id";
+            int result = session.createQuery(query).setParameter("id", serviceId).executeUpdate();
+            isSuccess = result > 0;
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
             session.clear();
