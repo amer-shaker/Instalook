@@ -20,7 +20,7 @@ public interface BarberService {
 
     public abstract void updateBarberAvailability(int barberId, int availability);
 
-    public abstract void rateBarber(int barberId, int rate);
+    public abstract void rateBarber(int barberId, int rate, int salonId);
 
     public abstract boolean deleteBarberById(int barberId);
 }

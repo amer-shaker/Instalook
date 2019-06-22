@@ -52,8 +52,8 @@ public class BarberServiceImpl implements BarberService {
 
     @Override
     @Transactional
-    public void rateBarber(int barberId, int rate) {
-        barberDAO.rateBarber(barberId, rate);
+    public void rateBarber(int barberId, int rate, int salonId) {
+        barberDAO.rateBarber(barberId, rate, salonId);
     }
 
     @Override
