@@ -6,6 +6,7 @@ E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\serv
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Point.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Salon.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BarberServiceImpl.java
+E:\new webservice\Instalook\src\main\java\com\instalook\instalook\view\controller\utils\PhotoService.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\ServiceDAOImpl.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\view\controller\salon\SalonServiceRestController.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Booking.java
@@ -13,6 +14,7 @@ E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Barber.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BookingServiceImpl.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\view\controller\barber\BarberRestController.java
+E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\ImageFile.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\SalonServiceServiceImpl.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\model\dal\service\UserService.java
 E:\new webservice\Instalook\src\main\java\com\instalook\instalook\view\controller\authentication\UserRestController.java
