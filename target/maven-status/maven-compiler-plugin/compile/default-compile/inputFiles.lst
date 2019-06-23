@@ -17,11 +17,13 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\Bookin
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\UserDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BarberDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\impl\BarberServiceImpl.java
+D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\ImageFile.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\SalonDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\BookingDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\view\controller\salon\SalonServiceRestController.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Point.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BarberService.java
+D:\Instalook\src\main\java\com\instalook\instalook\view\controller\utils\PhotoService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\UserDAO.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Post.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\ServiceDAO.java
@@ -34,4 +36,5 @@ D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Service.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\BookingService.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\dao\impl\BarberDAOImpl.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\entity\Salon.java
+D:\Instalook\src\main\java\com\instalook\instalook\view\controller\utils\ImageTransferring.java
 D:\Instalook\src\main\java\com\instalook\instalook\model\dal\service\SalonService.java
