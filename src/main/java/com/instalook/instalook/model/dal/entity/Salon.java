@@ -36,11 +36,11 @@ public class Salon implements java.io.Serializable {
     private String salonLocation;
     private String salonType;
     private Double salonRate;
+
     @JsonIgnore
     private Set<Barber> barbers = new HashSet<>(0);
     @JsonIgnore
     private Set<Image> images = new HashSet<>(0);
-    @JsonIgnore
     private Set<Post> posts = new HashSet<>(0);
     @JsonIgnore
     private Set<Service> services = new HashSet<>(0);
@@ -196,6 +196,7 @@ public class Salon implements java.io.Serializable {
         this.points = points;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "salons")
     public Set<User> getUsers() {
         return this.users;

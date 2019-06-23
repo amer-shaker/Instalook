@@ -1,5 +1,6 @@
 package com.instalook.instalook.model.dal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Proxy;
 
 /**
  * @author Amer Shaker
@@ -55,7 +57,8 @@ public class Post implements java.io.Serializable {
     public void setPostId(int postId) {
         this.postId = postId;
     }
-
+    
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salon_id")
     public Salon getSalon() {
@@ -92,7 +95,8 @@ public class Post implements java.io.Serializable {
     public void setLikesNumber(int likesNumber) {
         this.likesNumber = likesNumber;
     }
-
+    
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "posts")
     public Set<User> getSavedPostUsers() {
         return this.savedPostUsers;
@@ -101,7 +105,8 @@ public class Post implements java.io.Serializable {
     public void setSavedPostUsers(Set<User> savedPostUsers) {
         this.savedPostUsers = savedPostUsers;
     }
-
+    
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "posts")
     public Set<User> getLikedPostUsers() {
         return this.likedPostUsers;
