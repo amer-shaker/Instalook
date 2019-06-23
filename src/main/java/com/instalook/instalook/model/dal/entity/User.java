@@ -155,7 +155,8 @@ public class User implements java.io.Serializable, Cloneable {
         this.posts = posts;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_follow_salon", catalog = "heroku_858654a6d05adcb",
             joinColumns = {
                 @JoinColumn(name = "user_id", nullable = false, updatable = false)},
