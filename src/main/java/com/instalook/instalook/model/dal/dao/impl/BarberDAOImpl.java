@@ -175,8 +175,10 @@ public class BarberDAOImpl implements BarberDAO {
         try {
             session = sessionFactory.getCurrentSession();
 
-            String query = "delete Barber where barberId = :id";
-            int result = session.createQuery(query).setParameter("id", barberId).executeUpdate();
+            String deleteBarberBookingsQuery = "delete Booking where barbers.barberId = :id";
+            String deleteBarberQuery = "delete Barber where barberId = :id";
+            session.createQuery(deleteBarberBookingsQuery).setParameter("id", barberId).executeUpdate();
+            int result = session.createQuery(deleteBarberQuery).setParameter("id", barberId).executeUpdate();
             isSuccess = result > 0;
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());

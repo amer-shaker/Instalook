@@ -56,7 +56,7 @@ public class ImageTransferring {
             response.put("message", "There is no file");
             return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex.getMessage());
             response.put("code", 0);
             response.put("message", ex.getMessage());
             return new ResponseEntity<>(response, HttpStatus.CONFLICT);

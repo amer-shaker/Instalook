@@ -32,7 +32,7 @@ public class User implements java.io.Serializable, Cloneable {
     private String email;
     private String password;
     private String location;
-    private byte[] profilePicture;
+    private String profilePicture;
     private Set<Booking> bookings = new HashSet<>(0);
     private Set<Post> posts = new HashSet<>(0);
     private Set<Salon> salons = new HashSet<>(0);
@@ -50,7 +50,7 @@ public class User implements java.io.Serializable, Cloneable {
         this.password = password;
     }
 
-    public User(Integer userId, String firstName, String lastName, String email, String password, String location, byte[] profilePicture, Set<Booking> bookings, Set<Post> posts, Set<Salon> salons, Set<Post> postses_1, Set<Point> points) {
+    public User(Integer userId, String firstName, String lastName, String email, String password, String location, String profilePicture, Set<Booking> bookings, Set<Post> posts, Set<Salon> salons, Set<Post> postses_1, Set<Point> points) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -122,11 +122,11 @@ public class User implements java.io.Serializable, Cloneable {
     }
 
     @Column(name = "profile_picture")
-    public byte[] getProfilePicture() {
+    public String getProfilePicture() {
         return this.profilePicture;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
+    public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 
