@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,7 @@ public class SalonDAOImpl implements SalonDAO {
 
         try {
             session = sessionFactory.getCurrentSession();
+         
             salonId = (Integer) session.save(salon);
         } catch (ConstraintViolationException ex) {
             System.err.println(ex.getConstraintName());
