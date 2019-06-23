@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,15 +29,27 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public int book(BookingDTO bookingDTO) {
-        Booking booking = new Booking();
-        session = sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, bookingDTO.getUserId());
-        Barber barber = (Barber) session.load(Barber.class, bookingDTO.getBarberId());
-        booking.setUser(user);
-        booking.setBarbers(barber);
-        booking.setBookingDateTime(bookingDTO.getDate());
-        int id = (Integer) session.save(booking);
-        return id;
+        int bookingId = 0;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            User user = (User) session.load(User.class, bookingDTO.getUserId());
+            Barber barber = (Barber) session.load(Barber.class, bookingDTO.getBarberId());
+
+            Booking booking = new Booking();
+            booking.setUser(user);
+            booking.setBarbers(barber);
+            booking.setBookingDateTime(bookingDTO.getDate());
+            bookingId = (Integer) session.save(booking);
+        } catch (ConstraintViolationException ex) {
+            System.err.println(ex.getConstraintName());
+            session.clear();
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+            session.clear();
+        }
+
+        return bookingId;
     }
 
     @Override

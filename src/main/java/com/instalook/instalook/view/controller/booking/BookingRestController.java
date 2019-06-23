@@ -1,6 +1,7 @@
 package com.instalook.instalook.view.controller.booking;
 
 import com.instalook.instalook.model.dal.dto.BookingDTO;
+import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.BookingService;
 import com.instalook.instalook.view.controller.utils.BaseResponse;
 import java.util.List;
@@ -14,32 +15,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  *
  * @author Anas
  */
 @RestController
+@RequestMapping("/booking")
 public class BookingRestController {
 
     @Autowired
     private BookingService bookingService;
 
-    @RequestMapping(value = "/user/book", method = RequestMethod.POST,
-            produces = "application/json")
-    public Object book(@RequestBody BookingDTO bookingDTO) {
+    @RequestMapping(value = "/book",
+            method = RequestMethod.POST,
+            produces = "application/json",
+            consumes = "application/json")
+    public Object book(@RequestBody BookingDTO bookingDTO, UriComponentsBuilder ucBuilder) {
         int id = bookingService.book(bookingDTO);
+        BaseResponse responseBody = new BaseResponse();
+
         if (id != 0) {
-            BaseResponse responseBody = new BaseResponse();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            responseBody.setStatusMessage("Booking Done Successfully.");
-            return responseBody;
+            headers.setLocation(ucBuilder.path("/book/{id}")
+                    .buildAndExpand(id).toUri());
+
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody,
+                    headers,
+                    HttpStatus.CREATED);
+
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Successfully, booked.");
+            return response;
         } else {
-            BaseResponse responseBody = new BaseResponse();
             ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
             responseBody.setStatusCode(response.getStatusCode());
-            responseBody.setStatusMessage("Booking Error");
+            responseBody.setStatusMessage("Duplicate entry for e-mail");
             return response;
         }
     }

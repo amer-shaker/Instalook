@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  *
- * @author Anas
  * @author Amer Shaker
  */
 public interface BookingService {
