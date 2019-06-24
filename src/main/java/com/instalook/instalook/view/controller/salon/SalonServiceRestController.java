@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.instalook.instalook.model.dal.service.SalonServiceService;
+import com.instalook.instalook.view.controller.utils.BaseResponse;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -29,16 +31,32 @@ public class SalonServiceRestController {
     @Autowired
     private SalonServiceService salonServiceService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Void> addService(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(value = "/add",
+            method = RequestMethod.POST,
+            produces = "application/json",
+            consumes = "application/json")
+    public ResponseEntity<BaseResponse> addService(@RequestBody ServiceDTO service, UriComponentsBuilder ucBuilder) {
         int id = salonServiceService.addService(service);
+        BaseResponse responseBody = new BaseResponse();
+
         if (id != 0) {
             HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setLocation(ucBuilder.path("/add/{id}")
-                    .buildAndExpand(service.getService().getServiceId()).toUri());
-            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+                    .buildAndExpand(id).toUri());
+
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody,
+                    headers,
+                    HttpStatus.CREATED);
+
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Successfully, created.");
+            return response;
         } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            ResponseEntity<BaseResponse> response = new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+            responseBody.setStatusCode(response.getStatusCode());
+            responseBody.setStatusMessage("Something, went wrong.");
+            return response;
         }
     }
 
