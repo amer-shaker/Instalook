@@ -1,7 +1,6 @@
 package com.instalook.instalook.view.controller.booking;
 
 import com.instalook.instalook.model.dal.dto.BookingDTO;
-import com.instalook.instalook.model.dal.entity.User;
 import com.instalook.instalook.model.dal.service.BookingService;
 import com.instalook.instalook.view.controller.utils.BaseResponse;
 import java.util.List;
